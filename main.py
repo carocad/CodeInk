@@ -2,7 +2,7 @@
 daVinci generates html files with drawings of your Python project source code.
 
 Usage:
-	daVinci draw [<PATH>]
+	daVinci draw
 	daVinci -h | --help
 	daVinci --version
 
@@ -21,7 +21,7 @@ def _main():
 	'''daVinci generates html files with drawings of your Python project source code.'''
   	arguments = docopt(__doc__, version = '0.0.1')
 
-  	if arguments['<PATH>']:
+  	if arguments['draw']:
 		print('test')
 	else:
 		print(__doc__)
