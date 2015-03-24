@@ -3,7 +3,7 @@ from PyFunction import PyFunction
 from PyClass import PyClass
 from pyclbr import readmodule_ex, Class, Function
 
-class PkgParser():
+class PkgHandler():
 
 	def __init__(self, path):
 		self.path = path
@@ -18,8 +18,10 @@ class PkgParser():
 
 		for name, path in modules.items():
 			try:
-				tmp_defs = readmodule_ex(name, [path])
-				for name, obj in tmp_defs.items():
+				if name in self.defs:
+					continue
+				classes = readmodule_ex(name, [path])
+				for name, obj in classes.items():
 					if isinstance(obj, Class):
 						self.defs[name] = PyClass(obj)
 					elif isinstance(obj, Function):

@@ -12,10 +12,9 @@ Options:
 
 """
 
-from os import getcwd, walk
+from os import getcwd
 from docopt import docopt
-from pyclbr import readmodule_ex, Class, Function
-from operator import itemgetter
+from PkgParser import PkgHandler
 
 
 def _main():
@@ -23,33 +22,11 @@ def _main():
 	arguments = docopt(__doc__, version = '0.0.1')
 
 	if arguments['draw']:
-		modules = {}
 		cwd = getcwd()
-		for path, dirs, files in walk(cwd):
-			for filename in files:
-				if filename.endswith('.py'):
-					modules[filename[:-3]] = path
+		pkg = PkgHandler(cwd)
+		pkg.parse()
 
-		definitions = []
-		for name, path in list(modules.items()):
-			try:
-				dict = readmodule_ex(name, [path])
-			except ImportError:
-				print("Error: failed to find module: ", name, " in ", path)
-			classes = list(dict.values())
-			if classes:
-				definitions.extend(classes)
-
-		for obj in definitions:
-			if isinstance(obj, Class):
-				print("class", obj.name, obj.super, obj.lineno)
-				methods = sorted(iter(obj.methods.items()), key=itemgetter(1))
-				for name, lineno in methods:
-					if name != "__path__":
-						print("  def", name, lineno)
-			elif isinstance(obj, Function):
-				print("def", obj.name, obj.lineno)
-
+		print(pkg.defsToString())
 	else:
 		print(__doc__)
 
