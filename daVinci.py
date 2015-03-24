@@ -14,9 +14,9 @@ Options:
 
 from os import getcwd
 from docopt import docopt
-from PkgParser import PkgHandler
+from PkgHandler import PkgHandler
 
-
+# TODO Modidy LighTable to show in RED the TODO tags
 def _main():
 	'''daVinci generates html files with drawings of your Python project source code.'''
 	arguments = docopt(__doc__, version = '0.0.1')
@@ -26,7 +26,8 @@ def _main():
 		pkg = PkgHandler(cwd)
 		pkg.parse()
 
-		print(pkg.defsToString())
+		print(pkg.classesToString())
+		print(pkg.functionsToString())
 	else:
 		print(__doc__)
 
