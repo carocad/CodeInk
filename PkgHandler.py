@@ -1,13 +1,12 @@
 from os import getcwd, walk
-from PyFunction import PyFunction
-from PyClass import PyClass
+from PyObject import PyObject
 from pyclbr import readmodule_ex, Class, Function
 
 class PkgHandler(object):
 	#TODO add further methods that provide more information about the classes
 	def __init__(self, path):
 		self.path = path
-		self.defs = {}
+		self.objects = {}
 
 	def parse(self):
 		modules = {}
@@ -18,14 +17,15 @@ class PkgHandler(object):
 
 		for name, path in modules.items():
 			try:
-				if name in self.defs:
+				if name in self.objects:
 					continue
 				classes = readmodule_ex(name, [path])
 				for name, obj in classes.items():
 					if isinstance(obj, Class):
-						self.defs[name] = PyClass(obj)
+						self.objects[name] = PyObject(PyObject.CLASS, obj)
 					elif isinstance(obj, Function):
-						self.defs[name] = PyFunction(obj)
+						self.objects[name] = PyObject(PyObject.FUNCTION, obj)
+
 			except ImportError as unknown_module:
 				error = ("Unknown module {name} at {path} \n"
 						 "\t Traceback: {error} \n"
@@ -44,16 +44,15 @@ class PkgHandler(object):
 				print(error)
 
 	def classesToString(self):
-		result = ""
-		for definition in self.defs.values():
-			if isinstance(definition, PyClass):
-				result += repr(definition)
-		return result
+		output = ""
+		for definition in self.objects.values():
+			if definition.getType() == PyObject.CLASS:
+				output += repr(definition)
+		return output
 
 	def functionsToString(self):
-		result = ""
-		for definition in self.defs.values():
-			if isinstance(definition, PyFunction):
-				result += repr(definition)
-		return result
-
+		output = ""
+		for definition in self.objects.values():
+			if definition.getType() == PyObject.FUNCTION:
+				output += repr(definition)
+		return output

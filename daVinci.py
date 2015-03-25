@@ -1,8 +1,10 @@
 """
-daVinci generates html files with drawings of your Python project source code.
+daVinci shows you easy diagrams of a Python packet structure.
 
 Usage:
 	daVinci draw
+	daVinci sketch
+	daVinci write
 	daVinci -h | --help
 	daVinci --version
 
@@ -16,9 +18,8 @@ from os import getcwd
 from docopt import docopt
 from PkgHandler import PkgHandler
 
-# TODO Modidy LighTable to show in RED the TODO tags
 def _main():
-	'''daVinci generates html files with drawings of your Python project source code.'''
+	"daVinci shows you easy diagrams of a Python packet structure."
 	arguments = docopt(__doc__, version = '0.0.1')
 
 	if arguments['draw']:

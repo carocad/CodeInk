@@ -1,2 +1,2 @@
 # daVinci
-daVinci draws your Python source code into an html file
+daVinci shows you easy diagrams of a Python packet structure.
