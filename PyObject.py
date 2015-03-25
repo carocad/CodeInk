@@ -15,12 +15,6 @@ class PyObject(object):
 
 		if tag == self.CLASS:
 			self._parents = obj.super
-			# Transform the parents into PyObject
-			for index, parent in enumerate(self._parents):
-				if isinstance(parent, str):
-					continue
-				else:
-					self._parents[index] = PyObject(self.CLASS, parent)
 			self._methods = obj.methods
 		elif tag == self.FUNCTION:
 			self._parents = [self.TYPE_OBJECT]
@@ -37,12 +31,13 @@ class PyObject(object):
 		output = ""
 		if self._type == self.CLASS:
 			for obj in self._parents:
-				if isinstance(obj, str) and obj != "object":
+				if obj == self.TYPE_OBJECT:
+					parent_names.append("*" + obj + "*")
+				elif isinstance(obj, str): # Not-parsed class
 					parent_names.append( "¿" + obj + "?")
 				elif isinstance(obj, Class):
 					parent_names.append("*" + obj.name + "*")
-				else:
-					parent_names.append("*" + obj + "*")
+
 			parent_names = ", ".join(parent_names)
 			output = ("class: {name} \n"
 					  "\t inherits from: {parents} \n"
@@ -60,8 +55,7 @@ class PyObject(object):
 					  "\t defined at: {fle}:L{line} \n"
 					  "\t in module: {module} \n"
 					 ).format(name=self._name, line=self._lineno,
-							  fle=self._filename, indent="\t",
-							  module = self._module)
+							  fle=self._filename, module = self._module)
 		return output
 
 	def __hash__(self):

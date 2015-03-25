@@ -38,7 +38,7 @@ class PkgHandler(object):
 				print(error)
 			except ValueError as wrong_value:
 				error = ("Parsing error at module {name} in {path} \n"
-						 "\t The passes value has an incorrect value \n"
+						 "\t The passed value has an incorrect value \n"
 						 "\t Traceback: {error} \n"
 						).format(name=name, path=path, error=wrong_value)
 				print(error)
@@ -56,3 +56,17 @@ class PkgHandler(object):
 			if definition.getType() == PyObject.FUNCTION:
 				output += repr(definition)
 		return output
+
+	def countFunctions(self):
+		counter = 0
+		for definition in self.objects.values():
+			if definition.getType() == PyObject.FUNCTION:
+				counter += 1
+		return counter
+
+	def countClasses(self):
+		counter = 0
+		for definition in self.objects.values():
+			if definition.getType() == PyObject.CLASS:
+				counter += 1
+		return counter
