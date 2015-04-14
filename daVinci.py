@@ -1,11 +1,11 @@
-"""
+r"""
 daVinci shows you easy diagrams of a Python packet structure.
 
 Usage:
 	daVinci draw
 	daVinci sketch
-	daVinci write
-	daVinci -h | --help
+	daVinci find
+	daVinci (-h | --help)
 	daVinci --version
 
 Options:
@@ -14,23 +14,19 @@ Options:
 
 """
 
-from os import getcwd
-from docopt import docopt
-from PkgHandler import PkgHandler
+import os
+#import docopt
+import pyCrawler
 
-def _main():
-	"daVinci shows you easy diagrams of a Python packet structure."
-	arguments = docopt(__doc__, version = '0.0.1')
+def main():
+	"""daVinci shows you easy diagrams of a Python packet structure."""
+	#arguments = docopt.docopt(__doc__, version = '0.0.1')
 
-	if arguments['draw']:
-		cwd = getcwd()
-		pkg = PkgHandler(cwd)
-		pkg.parse()
+	#if arguments['draw']:
+	path = os.getcwd()
+	PyCrawler.parse_project(path)
+	#else:
+	#	print(__doc__)
 
-		print(pkg.classesToString())
-		print(pkg.functionsToString())
-	else:
-		print(__doc__)
-
-if __name__ == '__main__':
-	_main()
+#if __name__ == '__main__':
+main()
