@@ -15,16 +15,16 @@ Options:
 """
 
 import os
-#import docopt
+import docopt
 import pyCrawler
 
 def main():
 	"""daVinci shows you easy diagrams of a Python packet structure."""
-	#arguments = docopt.docopt(__doc__, version = '0.0.1')
+	arguments = docopt.docopt(__doc__, version = '0.0.1')
 
 	#if arguments['draw']:
 	path = os.getcwd()
-	PyCrawler.parse_project(path)
+	pyCrawler.parse_project(path)
 	#else:
 	#	print(__doc__)
 
