@@ -3,7 +3,6 @@ daVinci shows you easy diagrams of a Python packet structure.
 
 Usage:
 	daVinci draw
-	daVinci sketch
 	daVinci find <definition>
 	daVinci (-h | --help)
 	daVinci --version
