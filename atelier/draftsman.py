@@ -19,7 +19,6 @@ def sketch_graph(pkg_modules, builtin_modules):
 	for module, filepath in pkg_modules.items():
 		ast_tree = pyPeephole.parse(filepath)
 		if ast_tree is None: # in case of invalid syntax
-			print('-------------INVALID SYNTAX ---------: ', filepath)
 			continue
 
 		# Insert current module info
@@ -34,13 +33,13 @@ def sketch_graph(pkg_modules, builtin_modules):
 
 		# Insert classes info
 		for classDef in pyPeephole.get_classes(ast_tree):
-			info = secretary.get_module_info(classDef, path)
+			info = secretary.get_class_info(classDef, filepath)
 			graph.add_node(id(classDef), info)
 			graph.add_edge(id(module), id(classDef))
 			for method in pyPeephole.get_functions(classDef):
-				info = secretary.get_function_info(node, filepath)
-				graph.add_node(id(function), info)
-				graph.add_edge(id(module), id(function))
+				info = secretary.get_function_info(method, filepath)
+				graph.add_node(id(method), info)
+				graph.add_edge(id(classDef), id(method))
 
 		# Insert imports info
 		for importDef in pyPeephole.get_imports(ast_tree):
@@ -48,11 +47,11 @@ def sketch_graph(pkg_modules, builtin_modules):
 				info = secretary.get_import_info(importDef, alias, filepath)
 				graph.add_node(id(alias), info)
 				graph.add_edge(id(alias), id(module))
-				if alias.name in builtin_modules:
-					graph.add_edge(id(python), id(alias))
-				elif alias.name in pkg_modules:
+				if info['name'] in pkg_modules:
 					relation_id = secretary.get_module_id(pkg_modules, info['name'])
 					graph.add_edge(id(alias), relation_id)
+				elif info['name'] in builtin_modules:
+					graph.add_edge(id(python), id(alias))
 				else: # Unknown module
 					graph.add_edge(id(python), id(alias))
 
@@ -61,11 +60,11 @@ def sketch_graph(pkg_modules, builtin_modules):
 			info = secretary.get_importFrom_info(importFrom, filepath)
 			graph.add_node(id(importFrom), info)
 			graph.add_edge(id(importFrom), id(module))
-			if info['name'] in builtin_modules:
-				graph.add_edge(id(python), id(importFrom))
-			elif info['name'] in pkg_modules:
+			if info['name'] in pkg_modules:
 				relation_id = secretary.get_module_id(pkg_modules, info['name'])
 				graph.add_edge(id(alias), relation_id)
+			elif info['name'] in builtin_modules:
+				graph.add_edge(id(python), id(importFrom))
 			else: # Unknown module
 				graph.add_edge(id(python), id(importFrom))
 
