@@ -10,9 +10,6 @@ def sketch_graph(pkg_modules, builtin_modules):
 	python = object()
 	graph.add_node(id(python), type='object', name='object',
 				  docstring=python.__doc__, filepath='builtin')
-	# Insert all modules are on the graph to avoid broken edges
-	for module in pkg_modules.keys():
-		graph.add_node(id(module))
 
 	# Add all the functions, classes and imports to the graph
 	##  Also adds the details of each module

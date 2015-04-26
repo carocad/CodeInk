@@ -1,5 +1,7 @@
 """Module to find the Python files in a directory and parse them"""
 
+import json
+from networkx.readwrite import json_graph
 from parchment import pkginfo
 from atelier import draftsman
 
@@ -9,12 +11,17 @@ def draw(path):
 	builtin_modules = dict(pkginfo.get_builtin_modules(ignore=pkg_modules))
 
 	graph = draftsman.sketch_graph(pkg_modules, builtin_modules)
-	print('----NODES------')
-	for node_id in graph.nodes_iter():
-		print(graph.node[node_id], '\n')
-	print('----EDGES------')
-	for from_id, to_id in graph.edges_iter():
-		print('from ', from_id, 'to ', to_id, '\n')
+	# write json formatted data
+	data = json_graph.node_link_data(graph)
+	# write json file
+	json.dump(data, open('canvas/data.json', 'w'))
+	print('JSON data written to test_data.json')
+	#print('----NODES------')
+	#for node_id in graph.nodes_iter():
+		#print(graph.node[node_id], '\n')
+	#print('----EDGES------')
+	#for from_id, to_id in graph.edges_iter():
+		#print('from ', from_id, 'to ', to_id, '\n')
 
 def search(path, name):
 	""" find the function or class definition with the specidfied name """
