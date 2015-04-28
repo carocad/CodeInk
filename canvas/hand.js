@@ -1,6 +1,6 @@
 
-var width = 800,
-    height = 600,
+var width = 1200,
+    height = 800,
     fill = d3.scale.category20();
 
 var svgContainer = d3.select("#paint")
@@ -10,8 +10,8 @@ var svgContainer = d3.select("#paint")
 
 d3.json("data.json", function(json) {
   var force = d3.layout.force()
-      			.charge(-120)
-      			.linkDistance(30)
+      			.charge(-200)
+      			.linkDistance(150)
       			.nodes(json.nodes)
       			.links(json.links)
       			.size([width, height])
@@ -27,39 +27,19 @@ d3.json("data.json", function(json) {
       				.attr("y1", function(d) { return d.source.y; })
       				.attr("x2", function(d) { return d.target.x; })
       				.attr("y2", function(d) { return d.target.y; });
-	// Node types
-	var functions = json.nodes.filter(function(node) {return node.type=='function';});
-	//var classes = json.nodes.filter(function(node) {return node.type=='class';});
-	var imports = json.nodes.filter(function(node) {return node.type=='import';});
-	//var modules = json.nodes.filter(function(node) {return node.type=='module';});
-	var others = json.nodes.filter(function(node) {return node.type!='function';});
 
-	var func_symbol = svgContainer.selectAll("circle.node")
-      			.data(functions)
+	var node = svgContainer.selectAll("circle.node")
+      			.data(json.nodes)
     			.enter()
   				.append("svg:circle")
       				.attr("class", "node")
       				.attr("cx", function(d) { return d.x; })
       				.attr("cy", function(d) { return d.y; })
-					.attr("r", 5)
-      				.style("fill", 'green')
+					.attr("r", function(d) { return d.size; })
+					.style("fill", function(d) {return d.color; })
       			.call(force.drag);
 
-	var other_symbol = svgContainer.selectAll("rect.node")
-      			.data(others)
-    			.enter()
-  				.append("svg:rect")
-      				.attr("class", "node")
-      				.attr("x", function(d) { return d.x; })
-      				.attr("y", function(d) { return d.y; })
-      				.attr("width", 10)
-					.attr("height", 10)
-      				.style("fill", 'red')
-      			.call(force.drag);
-
-  func_symbol.append("svg:title")
-      		 .text(function(d) { return d.name; });
-  other_symbol.append("svg:title")
+  node.append("svg:title")
       		 .text(function(d) { return d.name; });
 
   svgContainer.style("opacity", 1e-6)
@@ -73,9 +53,7 @@ d3.json("data.json", function(json) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-	func_symbol.attr("cx", function(d) { return d.x; })
+	node.attr("cx", function(d) { return d.x; })
         	   .attr("cy", function(d) { return d.y; });
-    other_symbol.attr("x", function(d) { return d.x; })
-        		 .attr("y", function(d) { return d.y; });
   });
 });

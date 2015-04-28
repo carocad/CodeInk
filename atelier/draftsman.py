@@ -1,68 +1,85 @@
 
 import networkx
+import math
+import radon.metrics
 import pyPeephole
-from atelier import secretary
+from . import secretary
 
-def sketch_graph(pkg_modules, builtin_modules):
+def sketch_blocks(project_modules, project_pkgs):
 	# Initialize a graph object
 	graph = networkx.Graph()
 	# Create the most basic node
-	python = object()
-	graph.add_node(id(python), type='object', name='object',
-				  docstring=python.__doc__, filepath='builtin')
+	Python = 'Python'
+	graph.add_node(Python, type='master', name=Python,
+				  docstring='Python builtin modules', filepath='builtin',
+				  size=10, color='#004C00')
 
-	# Add all the functions, classes and imports to the graph
-	##  Also adds the details of each module
-	for module, filepath in pkg_modules.items():
+	# First parse init files to resolve hidden imports
+	## It is assumed that a package will not import another package
+	hidden_imports = {}
+	for package, init_file in project_pkgs.items():
+		ast_tree = pyPeephole.parse(init_file)
+		if ast_tree is None: # in case of invalid syntax
+			continue
+		for importDef in pyPeephole.get_imports(ast_tree):
+			names = secretary.resolve_import(importDef.names)
+			modules = hidden_imports.setdefault(package, set())
+			prj_names = set(secretary.filter_project_modules(names, project_modules,
+															 default=Python))
+			modules |= prj_names
+		for importFrom in pyPeephole.get_importsFrom(ast_tree):
+			names = secretary.resolve_from_import(importFrom, project_modules)
+			modules = hidden_imports.setdefault(package, set())
+			prj_names = set(secretary.filter_project_modules(names, project_modules,
+															 default=Python))
+			modules |= prj_names
+
+	#for name, value in hidden_imports.items():
+		#print(name, '--->', value)
+
+	# Second parse each module and resolve its imports
+	for module, filepath in project_modules.items():
 		ast_tree = pyPeephole.parse(filepath)
 		if ast_tree is None: # in case of invalid syntax
 			continue
-
 		# Insert current module info
 		module_info = secretary.get_module_info(module, ast_tree, filepath)
-		graph.add_node(id(module), module_info)
-
-		# Inser functions info
-		for function in pyPeephole.get_functions(ast_tree):
-			info = secretary.get_function_info(function, filepath)
-			graph.add_node(id(function), info)
-			graph.add_edge(id(module), id(function))
-
-		# Insert classes info
-		for classDef in pyPeephole.get_classes(ast_tree):
-			info = secretary.get_class_info(classDef, filepath)
-			graph.add_node(id(classDef), info)
-			graph.add_edge(id(module), id(classDef))
-			for method in pyPeephole.get_functions(classDef):
-				info = secretary.get_function_info(method, filepath)
-				graph.add_node(id(method), info)
-				graph.add_edge(id(classDef), id(method))
-
+		graph.add_node(module, module_info)
+		# Calculate complexity and maintainability indexes
+		size, color = check_complexity(ast_tree, filepath)
+		graph.add_node(module, size=size, color=color)
 		# Insert imports info
+		imports = set()
 		for importDef in pyPeephole.get_imports(ast_tree):
-			for alias in importDef.names:
-				info = secretary.get_import_info(importDef, alias, filepath)
-				graph.add_node(id(alias), info)
-				graph.add_edge(id(alias), id(module))
-				if info['name'] in pkg_modules:
-					relation_id = secretary.get_module_id(pkg_modules, info['name'])
-					graph.add_edge(id(alias), relation_id)
-				elif info['name'] in builtin_modules:
-					graph.add_edge(id(python), id(alias))
-				else: # Unknown module
-					graph.add_edge(id(python), id(alias))
+			names = secretary.resolve_import(importDef.names)
+			for name in names:
+				if name in hidden_imports: # package imported
+					imports |= hidden_imports[name]
+				elif name in project_modules:
+					imports.add(name)
+				else: # builtin import
+					imports.add(Python)
 
-		# Insert from ... import info
+		# Insert from Foo import bar
 		for importFrom in pyPeephole.get_importsFrom(ast_tree):
-			info = secretary.get_importFrom_info(importFrom, filepath)
-			graph.add_node(id(importFrom), info)
-			graph.add_edge(id(importFrom), id(module))
-			if info['name'] in pkg_modules:
-				relation_id = secretary.get_module_id(pkg_modules, info['name'])
-				graph.add_edge(id(alias), relation_id)
-			elif info['name'] in builtin_modules:
-				graph.add_edge(id(python), id(importFrom))
-			else: # Unknown module
-				graph.add_edge(id(python), id(importFrom))
-
+			names = secretary.resolve_from_import(importFrom, project_modules)
+			prj_names = set(secretary.filter_project_modules(names, project_modules,
+															 default=Python))
+			imports |= prj_names
+		## Add a link from each module to the current one
+		#print(module, imports)
+		graph.add_star([module] + list(imports))
+		graph.add_node(module, impno=len(imports))
 	return graph
+
+def check_complexity(ast_tree, filepath):
+	maintainability = 0
+	size = 3 # minimum size
+	with open(filepath) as source:
+		halstead, cyclom, lloc, pcom = radon.metrics.mi_parameters(source.read(), count_multi=False)
+		maintainability = radon.metrics.mi_compute(halstead, cyclom, lloc, pcom)
+		size += math.sqrt(cyclom)
+
+	rgb = secretary.value_to_RGB(maintainability)
+	color = secretary.rgb_to_hex(rgb)
+	return size, color

@@ -41,7 +41,39 @@ def get_importFrom_info(importFrom, used_in):
 	return {'type':'import', 'name':_name, 'definition':_str,
 			'used_in':_path, 'lineno':_lineno}
 
-def get_module_id(modules, name):
-	for module in modules.keys():
-		if name == module:
-			return id(module)
+def resolve_from_import(importFrom, project_modules):
+	if importFrom.module is not None:
+		## from .pkg.module import function/class
+		return set([resolve_name(importFrom.module)])
+	else:
+		## from .pkg import module1, module2
+		# from . import module
+		return set(resolve_import(importFrom.names))
+
+def resolve_import(names):
+	for alias in names:
+		yield resolve_name(alias.name)
+
+def resolve_name(name):
+	if '.' in name: ## import foo.bar
+		chain = name.split('.')
+		return chain[-1] ### bar
+	else: # import Foo
+		return name
+
+def filter_project_modules(names, project_modules, default):
+	for name in names:
+		if name in project_modules:
+			yield name
+		else:
+			yield default
+
+def value_to_RGB(value):
+	# max(value) = 100
+	R = (255 * (100 - value) )/ 100
+	G = (255 * value) / 100
+	B = 0
+	return (R, G, B)
+
+def rgb_to_hex(rgb):
+    return '#%02x%02x%02x' % rgb

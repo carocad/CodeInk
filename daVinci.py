@@ -6,11 +6,13 @@ from parchment import pkginfo
 from atelier import draftsman
 
 def draw(path):
-	pkg_dirs = pkginfo.get_directories(path)
-	pkg_modules = dict(pkginfo.get_modules(pkg_dirs))
-	builtin_modules = dict(pkginfo.get_builtin_modules(ignore=pkg_modules))
+	pkg_dirs = set(pkginfo.get_directories(path))
+	project_modules = dict(pkginfo.get_modules(pkg_dirs))
+	project_pkgs = dict(pkginfo.get_packages(pkg_dirs))
+	builtin_modules = dict(pkginfo.get_builtin_modules(ignore=project_modules))
+	builtin_pkgs = dict(pkginfo.get_builtin_packages(ignore=project_pkgs))
 
-	graph = draftsman.sketch_graph(pkg_modules, builtin_modules)
+	graph = draftsman.sketch_blocks(project_modules, project_pkgs)
 	# write json formatted data
 	data = json_graph.node_link_data(graph)
 	# write json file
