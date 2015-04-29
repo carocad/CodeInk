@@ -17,6 +17,7 @@ each module is linked with every other module that it imports either directly or
 Coming soon
 
 ## requirements
+* python v3 (previous versions not tested)
 * networkx v1.9.1 (previous versions not tested)
 * radon v1.2 (previous versions not tested)
 * D3.js (used automatically in the html head)
