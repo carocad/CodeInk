@@ -1,5 +1,5 @@
 r"""
-daVinci shows you easy diagrams of a Python packet structure.
+nikola draws your Python packages in his head.
 
 Usage:
 	daVinci draw
@@ -17,7 +17,7 @@ __version__ = '0.0.5'
 
 import os
 import docopt
-import daVinci
+import nikola
 
 arguments = docopt.docopt(__doc__, version = __version__)
 

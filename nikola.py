@@ -1,4 +1,3 @@
-"""Module to find the Python files in a directory and parse them"""
 
 import os
 import json
