@@ -1,6 +1,7 @@
 
 import os
 import json
+import webbrowser
 from networkx.readwrite import json_graph
 from parchment import pkginfo
 from atelier import draftsman
@@ -13,10 +14,12 @@ def draw(path):
 	# write json formatted data
 	data = json_graph.node_link_data(graph)
 	# write json file
-	daVinci_dir = os.path.dirname(os.path.abspath(__file__))
-	data_filepath = os.path.join(daVinci_dir, 'canvas/data.json')
+	nikola_dir = os.path.dirname(os.path.abspath(__file__))
+	data_filepath = os.path.join(nikola_dir, 'canvas/data.json')
 	json.dump(data, open(data_filepath, 'w'))
 	print('\nJSON data written to:', data_filepath, '\n')
+	# open URL in running web browser
+	_load_url(os.path.join(nikola_dir,'canvas/canvas.html'))
 
 def search(path, name):
 	""" find the function or class definition with the specidfied name """
@@ -29,3 +32,6 @@ def search(path, name):
 	else:
 		print("\n I couldn't found the definition called {name}.\n".format(name=name),
 			  "Check if the name is correct")
+
+def _load_url(path):
+    webbrowser.open_new('file://%s' % (path))

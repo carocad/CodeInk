@@ -4,6 +4,7 @@ import modulefinder
 import os
 import networkx
 import radon.metrics
+import pyPeephole
 from atelier import secretary
 
 def sketch_blocks(project_modules, pkg_dirs):
@@ -15,9 +16,10 @@ def sketch_blocks(project_modules, pkg_dirs):
 				  docstring='Python builtin modules', filepath='builtin',
 				  size=10, color='#004C00')
 
+	print("-----", pkg_dirs)
 	finder = modulefinder.ModuleFinder(path=pkg_dirs)
 	for filepath in project_modules:
-		print('processing:\t', filepath)
+		print(filepath)
 		# Calculate complexity and maintainability indexes
 		size, color = check_complexity(filepath)
 		# Insert current module info

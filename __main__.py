@@ -23,8 +23,8 @@ arguments = docopt.docopt(__doc__, version = __version__)
 
 path = os.getcwd()
 if arguments['draw']:
-	daVinci.draw(path)
+	nikola.draw(path)
 elif arguments['find']:
-	daVinci.search(path, arguments['<definition>'])
+	nikola.search(path, arguments['<definition>'])
 else:
 	print(__doc__)
