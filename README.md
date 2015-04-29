@@ -12,8 +12,8 @@ each module is linked with every other module that it imports either directly or
 
 ## mind-space
 ![alt tag](https://raw.github.com/carocad/nikola/master/radon_art.png)
-drawing of radon v1.2
-hover over a circle to check which file is that
+- drawing of radon v1.2
+- hover over a circle to check which file is that
 
 ## install
 PIP Coming soon
