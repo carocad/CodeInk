@@ -5,29 +5,34 @@ He will use as many tools as possible to make his drawing comes true.
 
 ## o.O?
 the animation that nikola creates is base on your several things:
-* color: module maintainability index; green= :) --> reed= :(
+* color: module maintainability index; green= :) --> red= :(
 * size: ciclomatic complexity; small= :) --> big= :(
 
 each module is linked with every other module that it imports either directly or indirectly.
 
 ## mind-space
 ![alt tag](https://raw.github.com/carocad/nikola/master/radon_art.png)
+drawing of radon v1.2
+hover over a circle to check which file is that
 
 ## install
-Coming soon
+PIP Coming soon
+### manually
+```
+git clone https://github.com/carocad/nikola.git
+```
+## usage
+```
+$ cd my_project
+$ python3 path/to/nikola draw
+```
+more info comming soon
 
 ## requirements
 * python v3 (previous versions not tested)
 * networkx v1.9.1 (previous versions not tested)
 * radon v1.2 (previous versions not tested)
 * D3.js (used automatically in the html head)
-
-## usage
-```
-$ cd my_project
-$ nikola draw
-```
-more info comming soon
 
 ### lincense Apache 2.0
 
