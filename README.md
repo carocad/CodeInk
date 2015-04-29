@@ -3,6 +3,13 @@ nikola is a crazy man that with will draw your python packages in his head.
 
 He will use as many tools as possible to make his drawing comes true.
 
+## o.O?
+the animation that nikola creates is base on your several things:
+* color: module maintainability index; green= :) --> reed= :(
+* size: ciclomatic complexity; small= :) --> big= :(
+
+each module is linked with every other module that it imports either directly or indirectly.
+
 ## mind-space
 ![alt tag](https://raw.github.com/carocad/nikola/master/radon_art.png)
 
