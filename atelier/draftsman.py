@@ -1,78 +1,45 @@
 
-import networkx
 import math
+import modulefinder
+import os
+import networkx
 import radon.metrics
 import pyPeephole
-from . import secretary
+from atelier import secretary
 
-def sketch_blocks(project_modules, project_pkgs):
+def sketch_blocks(project_modules, pkg_dirs):
 	# Initialize a graph object
 	graph = networkx.Graph()
 	# Create the most basic node
 	Python = 'Python'
-	graph.add_node(Python, type='master', name=Python,
+	graph.add_node(hash(Python), type='master', name=Python,
 				  docstring='Python builtin modules', filepath='builtin',
 				  size=10, color='#004C00')
 
-	# First parse init files to resolve hidden imports
-	## It is assumed that a package will not import another package
-	hidden_imports = {}
-	for package, init_file in project_pkgs.items():
-		ast_tree = pyPeephole.parse(init_file)
-		if ast_tree is None: # in case of invalid syntax
-			continue
-		for importDef in pyPeephole.get_imports(ast_tree):
-			names = secretary.resolve_import(importDef.names)
-			modules = hidden_imports.setdefault(package, set())
-			prj_names = set(secretary.filter_project_modules(names, project_modules,
-															 default=Python))
-			modules |= prj_names
-		for importFrom in pyPeephole.get_importsFrom(ast_tree):
-			names = secretary.resolve_from_import(importFrom, project_modules)
-			modules = hidden_imports.setdefault(package, set())
-			prj_names = set(secretary.filter_project_modules(names, project_modules,
-															 default=Python))
-			modules |= prj_names
-
-	#for name, value in hidden_imports.items():
-		#print(name, '--->', value)
-
-	# Second parse each module and resolve its imports
-	for module, filepath in project_modules.items():
-		ast_tree = pyPeephole.parse(filepath)
-		if ast_tree is None: # in case of invalid syntax
-			continue
-		# Insert current module info
-		module_info = secretary.get_module_info(module, ast_tree, filepath)
-		graph.add_node(module, module_info)
+	finder = modulefinder.ModuleFinder(path=pkg_dirs)
+	for filepath in project_modules:
+		print(filepath)
 		# Calculate complexity and maintainability indexes
-		size, color = check_complexity(ast_tree, filepath)
-		graph.add_node(module, size=size, color=color)
-		# Insert imports info
-		imports = set()
-		for importDef in pyPeephole.get_imports(ast_tree):
-			names = secretary.resolve_import(importDef.names)
-			for name in names:
-				if name in hidden_imports: # package imported
-					imports |= hidden_imports[name]
-				elif name in project_modules:
-					imports.add(name)
-				else: # builtin import
-					imports.add(Python)
+		size, color = check_complexity(filepath)
+		# Insert current module info
+		module_info = {'name':filepath, 'size':size, 'color':color}
+		graph.add_node(hash(filepath), module_info)
+		# Find module imports
+		finder.run_script(filepath)
+		for module in finder.modules.values():
+			if module.__file__ is not None and not module.__file__.endswith('__init__.py'):
+				# project module but no package
+				graph.add_edge(hash(filepath), hash(module.__file__))
+			else: # builtin modules
+				graph.add_edge(hash(filepath), hash(Python))
+		if finder.badmodules.values():
+			graph.add_edge(hash(filepath), hash(Python))
 
-		# Insert from Foo import bar
-		for importFrom in pyPeephole.get_importsFrom(ast_tree):
-			names = secretary.resolve_from_import(importFrom, project_modules)
-			prj_names = set(secretary.filter_project_modules(names, project_modules,
-															 default=Python))
-			imports |= prj_names
-		## Add a link from each module to the current one
-		#print(module, imports)
-		graph.add_star([module] + list(imports))
-		graph.add_node(module, impno=len(imports))
+		#graph.add_star([module] + list(imports))
+		#graph.add_node(module, impno=len(imports))
 	return graph
 
-def check_complexity(ast_tree, filepath):
+def check_complexity(filepath):
 	maintainability = 0
 	size = 3 # minimum size
 	with open(filepath) as source:

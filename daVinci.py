@@ -7,11 +7,10 @@ from parchment import pkginfo
 from atelier import draftsman
 
 def draw(path):
-	pkg_dirs = set(pkginfo.get_directories(path))
-	project_modules = dict(pkginfo.get_modules(pkg_dirs))
-	project_pkgs = dict(pkginfo.get_packages(pkg_dirs))
+	pkg_dirs = list(pkginfo.get_directories(path))
+	project_modules = list(pkginfo.get_modules(pkg_dirs))
 
-	graph = draftsman.sketch_blocks(project_modules, project_pkgs)
+	graph = draftsman.sketch_blocks(project_modules, pkg_dirs)
 	# write json formatted data
 	data = json_graph.node_link_data(graph)
 	# write json file
@@ -19,12 +18,6 @@ def draw(path):
 	data_filepath = os.path.join(daVinci_dir, 'canvas/data.json')
 	json.dump(data, open(data_filepath, 'w'))
 	print('\nJSON data written to:', data_filepath, '\n')
-	#print('----NODES------')
-	#for node_id in graph.nodes_iter():
-		#print(graph.node[node_id], '\n')
-	#print('----EDGES------')
-	#for from_id, to_id in graph.edges_iter():
-		#print('from ', from_id, 'to ', to_id, '\n')
 
 def search(path, name):
 	""" find the function or class definition with the specidfied name """
