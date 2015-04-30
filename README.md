@@ -20,17 +20,17 @@ hint: if A imports B, and B imports C, then A imports B and C, right?
 PIP Coming soon
 ### manually
 ```
-pip install docopt
-pip install networkx
-pip install radon
-git clone https://github.com/carocad/nikola.git
+$ git clone https://github.com/carocad/nikola.git
+$ cd nikola
+$ python setup.py install
 ```
 ## usage
 ```
 $ cd my_project
-$ python3 path/to/nikola draw
+$ sudo nikola draw
 ```
 more info comming soon
+NOTE: nikola needs to write a json file that will be later load using javascript. Currently I haven't found any other way to do this but to give special permissions to nikola once it is installed.
 
 ## requirements
 * python v3 (previous versions not tested)
