@@ -2,10 +2,11 @@ r"""
 nikola draws your Python packages in his head.
 
 Usage:
-	daVinci draw
-	daVinci find <definition>
-	daVinci (-h | --help)
-	daVinci --version
+	nikola draw
+	nikola portrait <file>
+	nikola blame <file>
+	nikola (-h | --help)
+	nikola --version
 
 Options:
 	-h --help Show this screen.
@@ -24,7 +25,9 @@ arguments = docopt.docopt(__doc__, version = __version__)
 path = os.getcwd()
 if arguments['draw']:
 	nikola.draw(path)
-elif arguments['find']:
-	nikola.search(path, arguments['<definition>'])
+elif arguments['portrait']:
+	print(' Coming soon :)')
+elif arguments['blame']:
+	print(' Coming soon :)')
 else:
 	print(__doc__)
