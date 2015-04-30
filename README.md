@@ -1,12 +1,12 @@
-# nikola
-nikola is a crazy man that with will draw your python modules' relations, complexity and maintainability index in your webbrowser; and he will use as many tools as possible to make his drawings comes true.
+# nicolas
+nicolas is a crazy man that with will draw your python modules' relations, complexity and maintainability index in your webbrowser; and he will use as many tools as possible to make his drawings comes true.
 
 ![alt tag](radon_art.png)
 - drawing of radon v1.2
 - hover over a rounded rectangle to check which module is it
 
 ## o.O?
-the animation that nikola creates is base on:
+the animations that nicolas creates are base on:
 * symbols: rounded squares are modules --> Python is a circle (hint: installed modules)
 * lines: each line represents an import
 * color: module maintainability index; green= :) --> red= :(
@@ -19,13 +19,13 @@ hint: if A imports B, and B imports C, then A imports B and C, right?
 PIP Coming soon
 ### manually
 ```
-$ git clone https://github.com/carocad/nikola.git
-$ cd nikola
+$ git clone https://github.com/carocad/nicolas.git
+$ cd nicolas
 $ python setup.py install
 ```
 ## usage
 ```
-$ nikola draw /path/to/project
+$ nicolas draw /path/to/project
 ```
 more info comming soon
 
