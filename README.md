@@ -1,7 +1,7 @@
 # nikola
-nikola is a crazy man that with will draw your python packages in your webbrowser; and he will use as many tools as possible to make his drawings comes true.
+nikola is a crazy man that with will draw your python modules' relations, complexity and maintainability index in your webbrowser; and he will use as many tools as possible to make his drawings comes true.
 
-![alt tag](https://raw.github.com/carocad/nikola/master/radon_art.png)
+![alt tag](radon_art.png)
 - drawing of radon v1.2
 - hover over a rounded rectangle to check which module is it
 
@@ -25,15 +25,12 @@ $ python setup.py install
 ```
 ## usage
 ```
-$ cd my_project
-$ sudo nikola draw
+$ nikola draw /path/to/project
 ```
 more info comming soon
 
-NOTE: nikola needs to write a json file that will be later load using javascript. Currently I haven't found any other way to do this but to give special permissions to nikola once it is installed.
-
 ## requirements
-* python v3 (previous versions not tested)
+* python v3.3 (previous versions not tested)
 * docopt v0.6.2 ((previous versions not tested))
 * networkx v1.9.1 (previous versions not tested)
 * radon v1.2 (previous versions not tested)
