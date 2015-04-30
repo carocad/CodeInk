@@ -16,13 +16,12 @@ Options:
 
 __version__ = '0.0.5'
 
-import os
 import docopt
 import nikola
 
 arguments = docopt.docopt(__doc__, version = __version__)
 
-path = os.getcwd()
+path = '.' # current directory
 if arguments['draw']:
 	nikola.draw(path)
 elif arguments['portrait']:
