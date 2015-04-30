@@ -3,15 +3,15 @@ from setuptools import setup, find_packages
 from src import __version__
 
 setup(
-    name = 'nikola',
+    name = 'nicolas',
     version = __version__,
-    description = 'nikola draws your Python modules into a graph.',
+    description = 'nicolas draws your Python modules into a graph.',
     long_description = open('README.md').read(),
     author='Camilo Roca',
     author_email = 'carocad@unal.edu.co',
     license = 'Apache 2.0',
     keywords = ['graph', 'module', 'complexity', 'maintainability', 'import'],
-    url = 'http://github.com/carocad/nikola',
+    url = 'http://github.com/carocad/nicolas',
     packages = find_packages(),
 	data_files=[ ('src/canvas', ['src/canvas/canvas.html',
 							 'src/canvas/hand.js',
@@ -24,5 +24,5 @@ setup(
 				 'Topic :: Utilities',
 				 'Programming Language :: Python :: 3'],
     entry_points = {'console_scripts': [
-						'nikola = src:main']}
+						'nicolas = src:main']}
 )

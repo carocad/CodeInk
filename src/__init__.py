@@ -1,12 +1,12 @@
 r"""
-nikola draws your Python modules into a graph.
+nicolas draws your Python modules into a graph.
 
 Usage:
-	nikola draw <directory>
-	nikola portrait <file>
-	nikola blame <file>
-	nikola (-h | --help)
-	nikola --version
+	nicolas draw <directory>
+	nicolas portrait <file>
+	nicolas blame <file>
+	nicolas (-h | --help)
+	nicolas --version
 
 Options:
 	-h --help Show this screen.
@@ -19,12 +19,12 @@ __version__ = '0.0.4'
 def main(args=None):
 
 	import docopt
-	from src import nikola
+	from src import nicolas
 
 	arguments = docopt.docopt(__doc__, version = __version__)
 	if arguments['draw']:
 		path = arguments['<directory>']
-		nikola.draw(path)
+		nicolas.draw(path)
 	elif arguments['portrait']:
 		print(' Coming soon :)')
 	elif arguments['blame']:
