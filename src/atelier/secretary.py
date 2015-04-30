@@ -1,5 +1,5 @@
 
-import pyPeephole
+#import pyPeephole
 
 def get_module_info(name, tree, path):
 	_name = name

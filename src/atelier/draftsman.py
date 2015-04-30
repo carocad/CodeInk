@@ -4,7 +4,7 @@ import modulefinder
 import os
 import networkx
 import radon.metrics
-from atelier import secretary
+from ..atelier import secretary
 
 def sketch_blocks(project_modules, pkg_dirs):
 	# Initialize a graph object
