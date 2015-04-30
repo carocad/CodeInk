@@ -1,5 +1,5 @@
 # nikola
-nikola is a crazy man that with will draw your python packages in his head; and he will use as many tools as possible to make his drawings comes true.
+nikola is a crazy man that with will draw your python packages in your webbrowser; and he will use as many tools as possible to make his drawings comes true.
 
 ## o.O?
 the animation that nikola creates is base on:
