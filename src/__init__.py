@@ -2,7 +2,7 @@ r"""
 nikola draws your Python modules into a graph.
 
 Usage:
-	nikola draw
+	nikola draw <directory>
 	nikola portrait <file>
 	nikola blame <file>
 	nikola (-h | --help)
@@ -14,7 +14,7 @@ Options:
 
 """
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 def main(args=None):
 
@@ -22,8 +22,8 @@ def main(args=None):
 	from src import nikola
 
 	arguments = docopt.docopt(__doc__, version = __version__)
-	path = '.' # current directory
 	if arguments['draw']:
+		path = arguments['<directory>']
 		nikola.draw(path)
 	elif arguments['portrait']:
 		print(' Coming soon :)')
