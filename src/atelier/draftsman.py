@@ -4,7 +4,7 @@ import modulefinder
 import os
 import networkx
 import radon.metrics
-from ..atelier import secretary
+from src.atelier import secretary
 
 def sketch_blocks(project_modules, pkg_dirs):
 	# Initialize a graph object
@@ -26,7 +26,8 @@ def sketch_blocks(project_modules, pkg_dirs):
 		# Find module imports
 		finder.run_script(filepath)
 		for module in finder.modules.values():
-			if module.__file__ is not None and not module.__file__.endswith('__init__.py'):
+			if module.__file__ is not None and not module.__file__.endswith('__init__.py') and (
+			   filepath != module.__file__) and module.__name__ != '__main__':
 				# project module but no package
 				graph.add_edge(hash(filepath), hash(module.__file__))
 			else: # builtin modules
