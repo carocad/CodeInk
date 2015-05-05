@@ -1,7 +1,7 @@
 # nicolas
 nicolas is a crazy man that with will draw your python modules' relations, complexity and maintainability index in your webbrowser; and he will use as many tools as possible to make his drawings comes true.
 
-![alt tag](radon_art.png)
+![radon drawing made by nicolas](radon_art.png)
 - drawing of radon v1.2
 - hover over a rounded rectangle to check which module is it
 
