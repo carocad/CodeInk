@@ -1,17 +1,17 @@
 
 from setuptools import setup, find_packages
-from src import __version__
+import src
 
 setup(
     name = 'nicolas',
-    version = __version__,
-    description = 'nicolas draws your Python modules into a graph.',
+    version = src.__version__,
+    description = 'nicolas draws your Python source code into beautiful graph structures',
     long_description = open('README.md').read(),
-    author='Camilo Roca',
-    author_email = 'carocad@unal.edu.co',
-    license = 'Apache 2.0',
+    author = src.__author__,
+    author_email = src.__author_email__,
+    license = src.__license__,
     keywords = ['graph', 'module', 'complexity', 'maintainability', 'import'],
-    url = 'http://github.com/carocad/nicolas',
+    url = src.__url__,
     packages = find_packages(),
 	py_modules=['command_line'],
 	data_files=[ ('src/canvas', ['src/canvas/hand.js',
