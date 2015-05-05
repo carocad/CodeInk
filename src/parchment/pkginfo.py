@@ -1,18 +1,37 @@
 
 import os
 import pkgutil
+import fnmatch
 
 def get_directories(path):
 	for root, dirs, files in os.walk(path):
-		for file in files:
-			if file.endswith('.py'):
-				yield root
-				break
+		if fnmatch.filter(files, '*.py'):
+			yield root
+
+def is_package(abspath):
+	parent_path = os.path.dirname(abspath)
+	for root, name, ispkg in pkgutil.iter_modules([parent_path]):
+		if ispkg and hasattr(root, 'path') \
+		and os.path.join(root.path, name) == abspath:
+			return True
+	return False
 
 def get_modules(directories):
 	for root, name, ispkg in pkgutil.iter_modules(directories):
 		if hasattr(root, 'path') and not ispkg:
-			yield os.path.join(root.path, name + '.py')
+			yield (root.path, name + '.py')
+
+def filter_modules(modules, patterns):
+	for root, filename in modules:
+		for pattern in patterns:
+			if fnmatch.fnmatch(filename, pattern):
+				break
+		else:
+			yield (root, filename)
+
+def make_filepaths(modules):
+	for root, filename in modules:
+		yield  os.path.join(root, filename)
 
 def get_packages(directories):
 	for root, name, ispkg in pkgutil.iter_modules(directories):
