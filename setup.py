@@ -11,7 +11,7 @@ setup(
     author_email = src.__author_email__,
     license = src.__license__,
     keywords = ['graph', 'module', 'complexity', 'maintainability', 'import'],
-    url = src.__url__,
+    url = src.__URL__,
     packages = find_packages(),
 	py_modules = ['command_line'],
 	package_data = { 'src.canvas': ['hand.js',
