@@ -6,8 +6,8 @@ import shutil
 import webbrowser
 import pkg_resources
 from networkx.readwrite import json_graph
-from src.parchment import pkginfo
-from src.atelier import draftsman
+from nicolas.parchment import pkginfo
+from nicolas.atelier import draftsman
 
 def draw(abspath, ignores):
 	# path can be either relative or abs path

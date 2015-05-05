@@ -13,7 +13,7 @@ setup(
     keywords = ['graph', 'module', 'complexity', 'maintainability', 'import'],
     url = src.__URL__,
     packages = find_packages(),
-	py_modules = ['command_line'],
+	py_modules = ['nicolas_cli'],
 	package_data = { 'src.canvas': ['hand.js',
 							 		'canvas.html',
 							 		'cubism.css'] },
@@ -23,5 +23,5 @@ setup(
     classifiers = ['Development Status :: 3 - Alpha',
 				 	'Topic :: Utilities',
 				 	'Programming Language :: Python :: 3'],
-    entry_points = {'console_scripts': [ 'nicolas = command_line:main']}
+    entry_points = {'console_scripts': [ 'nicolas = nicolas_cli:main']}
 )
