@@ -1,6 +1,6 @@
 
 from setuptools import setup, find_packages
-import src
+import nicolas
 
 setup(
     name = 'nicolas',
