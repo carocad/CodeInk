@@ -15,7 +15,7 @@ def draw(abspath, ignores):
 	modules = pkginfo.get_modules(dirs)
 	if ignores:
 		modules = pkginfo.filter_modules(modules, ignores)
-	modules_paths = pkginfo.make_filepaths(modules)
+	modules_paths = list(pkginfo.make_filepaths(modules))
 	if pkginfo.is_package(abspath):
 		dirs.append(os.path.dirname(abspath))
 
