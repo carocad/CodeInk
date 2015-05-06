@@ -20,12 +20,8 @@ hint: if A imports B, and B imports C, then A imports B and C, right?
         A --> B, B --> C, A --> B & C
 
 ## install
-PIP Coming soon
-### manually
 ```
-$ git clone https://github.com/carocad/nicolas.git
-$ cd nicolas
-$ python setup.py install
+pip3 install git+https://github.com/carocad/nicolas.git
 ```
 ## usage
 ```
