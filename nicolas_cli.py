@@ -17,6 +17,7 @@ Options:
 """
 
 import os
+import sys
 import docopt
 from nicolas import artist
 from nicolas import __version__
@@ -34,6 +35,8 @@ def main(args=None):
 		print(' Coming soon :)')
 	else:
 		print(__doc__)
+	return 0 # success
 
 if __name__ == '__main__':
-	main()
+	status = main()
+	sys.exit(status)
