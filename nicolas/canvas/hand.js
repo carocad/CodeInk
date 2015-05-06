@@ -39,7 +39,7 @@ d3.json("data.json", function(json) {
       				.attr("cx", function(d) { return d.x - d.size; })
       				.attr("cy", function(d) { return d.y - d.size; })
 					.attr('r', function(d) { return d.size; })
-					.style("fill", function(d) {return d.color; })
+					.style("fill", function(d) { return d.color;})
       			.call(force.drag);
 
 	var rectangles = svgContainer.selectAll("rect.node")
@@ -53,7 +53,7 @@ d3.json("data.json", function(json) {
 					.attr('ry', 4)
 					.attr("width", function(d) { return 2.5066*d.size; })
       				.attr("height", function(d) { return 2.5066*d.size; })
-					.style("fill", function(d) {return d.color; })
+					.style("fill", function(d) { return d3.hsl(d.color); })
       			.call(force.drag);
 
 
