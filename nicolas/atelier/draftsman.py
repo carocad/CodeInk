@@ -13,7 +13,7 @@ def sketch_blocks(project_modules, pkg_dirs):
 	Python = 'Python'
 	graph.add_node(hash(Python), type='master', name=Python,
 				  docstring='Python builtin modules', filepath='builtin',
-				  size=10, color='#004C00')
+				  size=10, color='#3776AB')
 
 	finder = modulefinder.ModuleFinder(path=pkg_dirs)
 	for filepath in project_modules:
@@ -47,6 +47,6 @@ def check_complexity(filepath):
 		maintainability = radon.metrics.mi_compute(halstead, cyclom, lloc, pcom)
 		size += math.sqrt(cyclom)
 
-	rgb = secretary.value_to_RGB(maintainability)
-	color = secretary.rgb_to_hex(rgb)
+	hsb = secretary.value_to_HSB(maintainability)
+	color = secretary.hsb_to_str(hsb)
 	return size, color

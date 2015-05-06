@@ -68,12 +68,12 @@ def filter_project_modules(names, project_modules, default):
 		else:
 			yield default
 
-def value_to_RGB(value):
+def value_to_HSB(value):
 	# max(value) = 100
-	R = (255 * (100 - value) )/ 100
-	G = (255 * value) / 100
-	B = 0
-	return (R, G, B)
+	hue = value * 1.2 # 1.2 = green, 0 = red
+	saturation = 90
+	brightness = 40
+	return (hue, saturation, brightness)
 
-def rgb_to_hex(rgb):
-    return '#%02x%02x%02x' % rgb
+def hsb_to_str(HSB):
+    return 'hsl({h},{s}%, {b}%)'.format(h=HSB[0], s=HSB[1], b=HSB[2])
