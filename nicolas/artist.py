@@ -13,8 +13,7 @@ def draw(abspath, ignores):
 	# path can be either relative or abs path
 	dirs = list(pkginfo.get_directories(abspath))
 	modules = pkginfo.get_modules(dirs)
-	if ignores:
-		modules = pkginfo.filter_modules(modules, ignores)
+	modules = pkginfo.filter_modules(modules, ignores)
 	modules_paths = list(pkginfo.make_filepaths(modules))
 	if pkginfo.is_package(abspath):
 		dirs.append(os.path.dirname(abspath))
@@ -29,6 +28,22 @@ def portrait(path):
 	pass
 
 def blame(path):
+	pass
+
+def trace(absfilepath):
+	# create a list of dirs where to search for modules
+	rootpath = os.path.dirname(absfilepath)
+	ispkg = pkginfo.is_package(rootpath)
+	while ispkg:
+		rootpath = os.path.dirname(rootpath)
+		ispkg = pkginfo.is_package(rootpath)
+	dirs = list(pkginfo.get_directories(rootpath))
+	# analyze module
+	graph = draftsman.sketch_footprint(absfilepath, dirs)
+	# write json formatted data
+	data = json_graph.node_link_data(graph)
+	 # create temp dir in cwd to avoid writing protected files
+	start_drawing(data)
 	pass
 
 def start_drawing(data):

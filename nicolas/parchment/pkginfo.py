@@ -12,7 +12,7 @@ def is_package(abspath):
 	parent_path = os.path.dirname(abspath)
 	for root, name, ispkg in pkgutil.iter_modules([parent_path]):
 		if ispkg and hasattr(root, 'path') \
-		and os.path.join(root.path, name) == abspath:
+			and os.path.join(root.path, name) == abspath:
 			return True
 	return False
 
@@ -22,12 +22,10 @@ def get_modules(directories):
 			yield (root.path, name + '.py')
 
 def filter_modules(modules, patterns):
-	for root, filename in modules:
-		for pattern in patterns:
-			if fnmatch.fnmatch(filename, pattern):
-				break
-		else:
-			yield (root, filename)
+	for pattern in patterns:
+		modules = filter( lambda module: fnmatch.fnmatch(module[1], pattern),
+						  modules)
+	return modules
 
 def make_filepaths(modules):
 	for root, filename in modules:
