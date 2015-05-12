@@ -24,10 +24,18 @@ hint: if A imports B, and B imports C, then A imports B and C, right?
 pip3 install git+https://github.com/carocad/nicolas.git
 ```
 ## usage
+### draw a package structure
 ```
-$ nicolas draw /path/to/project
+$ nicolas draw /path/to/project --ignore *test*
 ```
-more info comming soon
+### trace a module's imports
+```
+nicolas trace /path/to/module.py
+```
+### check who imports a module
+```
+nicolas blame /path/to/module.py --ignore *test*
+```
 
 ## requirements
 * python v3.3 (previous versions not tested)
