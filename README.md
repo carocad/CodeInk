@@ -26,7 +26,7 @@ pip3 install git+https://github.com/carocad/nicolas.git
 ## usage
 ### draw a package structure
 ```
-$ nicolas draw /path/to/project --ignore *test*
+$ nicolas draw /path/to/project
 ```
 ### trace a module's imports
 ```
@@ -34,7 +34,7 @@ nicolas trace /path/to/module.py
 ```
 ### check who imports a module
 ```
-nicolas blame /path/to/module.py --ignore *test*
+nicolas blame /path/to/module.py
 ```
 
 ## requirements
