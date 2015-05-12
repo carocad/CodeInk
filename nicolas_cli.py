@@ -12,7 +12,7 @@ Usage:
 Options:
 	-h --help	Show this screen.
 	--version	Show version.
-	--ignore	Unix shell-style wildcards for filepaths.
+	--ignore	files to ignore on the analysis(Unix shell-style wildcards)
 
 """
 
