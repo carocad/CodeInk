@@ -5,20 +5,20 @@ import uuid
 import shutil
 import webbrowser
 import pkg_resources
+
 from networkx.readwrite import json_graph
+
 from nicolas.parchment import pkginfo
 from nicolas.atelier import draftsman
 
 def draw(abspath, ignores):
 	# path can be either relative or abs path
 	dirs = list(pkginfo.get_directories(abspath))
-	modules = pkginfo.get_modules(dirs)
-	modules = pkginfo.filter_modules(modules, ignores)
-	modules_paths = list(pkginfo.make_filepaths(modules))
+	modpaths = list(pkginfo.get_modules(dirs))
+	modpaths = pkginfo.filter_modules(modpaths, ignores)
 	if pkginfo.is_package(abspath):
 		dirs.append(os.path.dirname(abspath))
-
-	graph = draftsman.sketch_blocks(modules_paths, dirs)
+	graph = draftsman.sketch_blocks(modpaths, dirs)
 	# write json formatted data
 	data = json_graph.node_link_data(graph)
 	 # create temp dir in cwd to avoid writing protected files
@@ -27,16 +27,20 @@ def draw(abspath, ignores):
 def portrait(path):
 	pass
 
-def blame(path):
-	pass
+def blame(absfilepath, ignores):
+	rootpath = pkginfo.find_root_pkg(absfilepath)
+	dirs = list(pkginfo.get_directories(rootpath))
+	modpaths = list(pkginfo.get_modules(dirs))
+	modpaths = pkginfo.filter_modules(modpaths, ignores)
+	graph = draftsman.sketch_accusation(absfilepath, modpaths, dirs)
+	# write json formatted data
+	data = json_graph.node_link_data(graph)
+	 # create temp dir in cwd to avoid writing protected files
+	start_drawing(data)
 
 def trace(absfilepath):
 	# create a list of dirs where to search for modules
-	rootpath = os.path.dirname(absfilepath)
-	ispkg = pkginfo.is_package(rootpath)
-	while ispkg:
-		rootpath = os.path.dirname(rootpath)
-		ispkg = pkginfo.is_package(rootpath)
+	rootpath = pkginfo.find_root_pkg(absfilepath)
 	dirs = list(pkginfo.get_directories(rootpath))
 	# analyze module
 	graph = draftsman.sketch_footprint(absfilepath, dirs)
@@ -44,7 +48,7 @@ def trace(absfilepath):
 	data = json_graph.node_link_data(graph)
 	 # create temp dir in cwd to avoid writing protected files
 	start_drawing(data)
-	pass
+	## TODO: Change the trace module symbol
 
 def start_drawing(data):
 	canvas_dir = pkg_resources.resource_filename(__name__, 'canvas')

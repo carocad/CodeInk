@@ -25,55 +25,12 @@ def get_class_info(classDef, path):
 	return {'type':'class', 'name':_name, 'docstring':_doc,
 		   'definition':_str, 'filepath':_path, 'lineno':_lineno}
 
-def get_import_info(importDef, alias, used_in):
-	_name = alias.name
-	_str = pyPeephole.to_string(importDef)
-	_path = used_in
-	_lineno = importDef.lineno
-	return {'type':'import', 'name':_name, 'definition':_str,
-			'used_in':_path, 'lineno':_lineno}
-
-def get_importFrom_info(importFrom, used_in):
-	_name = importFrom.module
-	_str = pyPeephole.to_string(importFrom)
-	_path = used_in
-	_lineno = importFrom.lineno
-	return {'type':'import', 'name':_name, 'definition':_str,
-			'used_in':_path, 'lineno':_lineno}
-
-def resolve_from_import(importFrom, project_modules):
-	if importFrom.module is not None:
-		## from .pkg.module import function/class
-		return set([resolve_name(importFrom.module)])
-	else:
-		## from .pkg import module1, module2
-		# from . import module
-		return set(resolve_import(importFrom.names))
-
-def resolve_import(names):
-	for alias in names:
-		yield resolve_name(alias.name)
-
-def resolve_name(name):
-	if '.' in name: ## import foo.bar
-		chain = name.split('.')
-		return chain[-1] ### bar
-	else: # import Foo
-		return name
-
-def filter_project_modules(names, project_modules, default):
-	for name in names:
-		if name in project_modules:
-			yield name
-		else:
-			yield default
-
-def value_to_HSB(value):
+def value_to_HSL(value):
 	# max(value) = 100
 	hue = value * 1.2 # 1.2 = green, 0 = red
 	saturation = 90
-	brightness = 40
-	return (hue, saturation, brightness)
+	lightness = 40
+	return (hue, saturation, lightness)
 
-def hsb_to_str(HSB):
-    return 'hsl({h},{s}%, {b}%)'.format(h=HSB[0], s=HSB[1], b=HSB[2])
+def hsl_to_str(HSL):
+    return 'hsl({h},{s}%, {l}%)'.format(h=HSL[0], s=HSL[1], l=HSL[2])

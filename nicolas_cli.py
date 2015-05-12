@@ -4,7 +4,7 @@ nicolas draws your Python modules into a graph.
 Usage:
 	nicolas draw <directory> [--ignore <pattern>...]
 	nicolas portrait <filepath>
-	nicolas blame <filepath>
+	nicolas blame <filepath> [--ignore <pattern>...]
 	nicolas trace <filepath>
 	nicolas (-h | --help)
 	nicolas --version
@@ -35,7 +35,9 @@ def main(args=None):
 	elif arguments['portrait']:
 		print(' Coming soon :)')
 	elif arguments['blame']:
-		print(' Coming soon :)')
+		path = os.path.abspath(arguments['<filepath>'])
+		ignore = arguments['<pattern>']
+		artist.blame(path, ignore)
 	else:
 		print(__doc__)
 	return 0 # success
