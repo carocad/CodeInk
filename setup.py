@@ -1,17 +1,17 @@
 
 from setuptools import setup, find_packages
-import codeInk
+import codeink
 
 setup(
     name = 'codeInk',
-    version = nicolas.__version__,
+    version = codeink.__version__,
     description = 'codeInk draws your Python source code into beautiful graph structures',
     long_description = open('README.md').read(),
-    author = nicolas.__author__,
-    author_email = nicolas.__author_email__,
-    license = nicolas.__license__,
+    author = codeink.__author__,
+    author_email = codeink.__author_email__,
+    license = codeink.__license__,
     keywords = ['graph', 'module', 'complexity', 'maintainability', 'import'],
-    url = nicolas.__URL__,
+    url = codeink.__URL__,
     packages = find_packages(),
 	py_modules = ['codeink_cli'],
 	package_data = { 'codeink.canvas': ['hand.js',
@@ -19,7 +19,8 @@ setup(
 							 			'cubism.css'] },
     install_requires = ['docopt>=0.6.2',
 						'networkx>=1.9.1',
-						'radon>=1.2' ],
+						'radon>=1.2',
+					   	'astunparse>=1.2'],
     classifiers = ['Development Status :: 3 - Alpha',
 				 	'Topic :: Utilities',
 				 	'Programming Language :: Python :: 3'],
