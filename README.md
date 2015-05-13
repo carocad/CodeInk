@@ -1,16 +1,16 @@
-# nicolas
+# codeInk
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
-nicolas is a Python source code analyzer focused on complexity and interrelation of modules.
+codeInk is a Python source code analyzer focused on complexity and interrelation of modules.
 
-nicolas draws the ihnerent relations of your modules along with their complexity and maintanability indexes in a beautiful graph powered by D3.js and SVG elements.
+codeInk draws the ihnerent relations of your modules along with their complexity and maintanability indexes in a beautiful graph powered by D3.js and SVG elements.
 
-![radon drawing made by nicolas](radon_art.png)
+![radon drawing made by codeInk](radon_art.png)
 - drawing of radon v1.2
 - hover over a rounded rectangle to check which module is it
 
 ## o.O?
-the animations that nicolas creates are base on:
+the animations that codeInk creates are base on:
 * symbols: rounded squares are modules --> Python is a circle (hint: installed modules)
 * lines: each line represents an import
 * color: module maintainability index   green = :) --> red = :(
@@ -21,20 +21,20 @@ hint: if A imports B, and B imports C, then A imports B and C, right?
 
 ## install
 ```
-pip3 install git+https://github.com/carocad/nicolas.git
+pip3 install git+https://github.com/carocad/codeInk.git
 ```
 ## usage
 ### draw a package structure
 ```
-$ nicolas draw /path/to/project
+$ codeink draw /path/to/project
 ```
 ### trace a module's imports
 ```
-nicolas trace /path/to/module.py
+codeink trace /path/to/module.py
 ```
 ### check who imports a module
 ```
-nicolas blame /path/to/module.py
+codeink blame /path/to/module.py
 ```
 
 ## requirements
@@ -45,5 +45,5 @@ nicolas blame /path/to/module.py
 * D3.js (used automatically in the html head)
 
 ### notes
-radon uses the ast_tree to analyze python code, so if the code to be drawn is not compatible with your python version. nikola will be just a crazy person without any meaning (ERROR).
+radon uses the ast_tree to analyze python code, so if the code to be drawn is not compatible with your python version. codeInk will be a bunch of utilities without any meaning (ERROR).
 
