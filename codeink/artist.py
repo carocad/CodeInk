@@ -24,8 +24,12 @@ def draw(abspath, ignores):
 	 # create temp dir in cwd to avoid writing protected files
 	start_drawing(data)
 
-def portrait(path):
-	pass
+def portrait(absfilepath):
+	graph = draftsman.sketch_profile(absfilepath)
+	# write json formatted data
+	data = json_graph.node_link_data(graph)
+	 # create temp dir in cwd to avoid writing protected files
+	start_drawing(data)
 
 def blame(absfilepath, ignores):
 	rootpath = pkginfo.find_root_pkg(absfilepath)

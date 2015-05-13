@@ -34,3 +34,6 @@ def value_to_HSL(value):
 
 def hsl_to_str(HSL):
     return 'hsl({h},{s}%, {l}%)'.format(h=HSL[0], s=HSL[1], l=HSL[2])
+
+def make_scoped_name(*scopes):
+	return '.'.join(scopes)

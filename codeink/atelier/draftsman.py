@@ -1,8 +1,9 @@
-
 import os
+import ast
 import modulefinder
 
 import networkx
+import astunparse
 
 from codeink.atelier import secretary
 from codeink.atelier import scientist
@@ -75,6 +76,42 @@ def sketch_accusation(targetpath, modulepaths, project_dirs):
 				module_info = {'name':modulepath, 'size':size, 'color':color}
 				graph.add_node(modulepath, module_info)
 				graph.add_edge(modulepath, targetpath)
+
+	return graph
+
+def sketch_profile(absfilepath):
+	graph = networkx.Graph()
+	module_name = os.path.basename(absfilepath)[:-3] # take the .py away
+	size, color = scientist.check_complexity(absfilepath)
+	# Insert target module info
+	module_info = {'name':module_name, 'size':size, 'color':color}
+	graph.add_node(module_name, module_info)
+	modtree = None
+	with open(absfilepath) as source:
+		modtree = ast.parse(source.read(), module_name)
+	for function in scientist.filtertype(ast.FunctionDef, modtree.body):
+		funkcode = astunparse.unparse(function)
+		size, color = scientist.check_snippet_complexity(funkcode)
+		funkname = secretary.make_scoped_name(module_name, function.name)
+		funkinfo = {'name':funkname, 'size':size, 'color':color}
+		graph.add_node(funkname, funkinfo)
+		graph.add_edge(module_name, funkname)
+	for classobj in scientist.filtertype(ast.ClassDef, modtree.body):
+		classcode = astunparse.unparse(classobj)
+		size, color = scientist.check_snippet_complexity(classcode)
+		classname = secretary.make_scoped_name(module_name, classobj.name)
+		classinfo = {'name':classname, 'size':size, 'color':color}
+		graph.add_node(classname, classinfo)
+		graph.add_edge(module_name, classname)
+		for method in scientist.filtertype(ast.FunctionDef, classobj.body):
+			methodcode = astunparse.unparse(method)
+			size, color = scientist.check_snippet_complexity(methodcode)
+			methodname = secretary.make_scoped_name(module_name,
+													classobj.name,
+													method.name)
+			methodinfo = {'name':methodname, 'size':size, 'color':color}
+			graph.add_node(methodname, methodinfo)
+			graph.add_edge(classname, methodname)
 
 	return graph
 

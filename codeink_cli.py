@@ -25,7 +25,7 @@ from codeink import __version__
 def main(args=None):
 	arguments = docopt.docopt(__doc__, version = __version__)
 
-	if ['draw']:
+	if arguments['draw']:
 		path = os.path.abspath(arguments['<directory>'])
 		ignore = arguments['<pattern>']
 		artist.draw(path, ignore)
@@ -33,7 +33,8 @@ def main(args=None):
 		path = os.path.abspath(arguments['<filepath>'])
 		artist.trace(path)
 	elif arguments['portrait']:
-		print(' Coming soon :)')
+		path = os.path.abspath(arguments['<filepath>'])
+		artist.portrait(path)
 	elif arguments['blame']:
 		path = os.path.abspath(arguments['<filepath>'])
 		ignore = arguments['<pattern>']
