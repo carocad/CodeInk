@@ -43,7 +43,7 @@ codeink portrait /path/to/module.py
 
 ## requirements
 * python v3.3 (previous versions not tested)
-* docopt v0.6.2 ((previous versions not tested))
+* docopt v0.6.2 (previous versions not tested)
 * networkx v1.9.1 (previous versions not tested)
 * radon v1.2 (previous versions not tested)
 * astunparse v1.2 (previous versions not tested)
