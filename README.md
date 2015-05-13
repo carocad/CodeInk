@@ -36,14 +36,19 @@ codeink trace /path/to/module.py
 ```
 codeink blame /path/to/module.py
 ```
+### get an overview of a module
+```
+codeink portrait /path/to/module.py
+```
 
 ## requirements
 * python v3.3 (previous versions not tested)
 * docopt v0.6.2 ((previous versions not tested))
 * networkx v1.9.1 (previous versions not tested)
 * radon v1.2 (previous versions not tested)
+* astunparse v1.2 (previous versions not tested)
 * D3.js (used automatically in the html head)
 
 ### notes
-radon uses the ast_tree to analyze python code, so if the code to be drawn is not compatible with your python version. codeInk will be a bunch of utilities without any meaning (ERROR).
+In order to use codeInk you must make sure that your python version uses the same syntax as the code that you are analyzing i.e. analyzing a code written with Python v2.7 syntax while using Python v3.x will result in an error.
 
