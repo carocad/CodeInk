@@ -1,7 +1,7 @@
 
 import math
 from radon import metrics
-from nicolas.atelier import secretary
+from codeink.atelier import secretary
 
 def check_complexity(filepath):
 	maintainability = 0

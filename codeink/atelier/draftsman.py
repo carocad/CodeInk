@@ -4,8 +4,8 @@ import modulefinder
 
 import networkx
 
-from nicolas.atelier import secretary
-from nicolas.atelier import scientist
+from codeink.atelier import secretary
+from codeink.atelier import scientist
 
 def sketch_blocks(modulepaths, pkg_dirs):
 	attributes = init(pkg_dirs)

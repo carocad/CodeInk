@@ -8,8 +8,8 @@ import pkg_resources
 
 from networkx.readwrite import json_graph
 
-from nicolas.parchment import pkginfo
-from nicolas.atelier import draftsman
+from codeink.parchment import pkginfo
+from codeink.atelier import draftsman
 
 def draw(abspath, ignores):
 	# path can be either relative or abs path

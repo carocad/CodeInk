@@ -1,13 +1,13 @@
 r"""
-nicolas draws your Python modules into a graph.
+codeink draws your Python modules into a graph.
 
 Usage:
-	nicolas draw <directory> [--ignore <pattern>...]
-	nicolas portrait <filepath>
-	nicolas blame <filepath> [--ignore <pattern>...]
-	nicolas trace <filepath>
-	nicolas (-h | --help)
-	nicolas --version
+	codeink draw <directory> [--ignore <pattern>...]
+	codeink portrait <filepath>
+	codeink blame <filepath> [--ignore <pattern>...]
+	codeink trace <filepath>
+	codeink (-h | --help)
+	codeink --version
 
 Options:
 	-h --help	Show this screen.
@@ -19,13 +19,13 @@ Options:
 import os
 import sys
 import docopt
-from nicolas import artist
-from nicolas import __version__
+from codeink import artist
+from codeink import __version__
 
 def main(args=None):
 	arguments = docopt.docopt(__doc__, version = __version__)
 
-	if arguments['draw']:
+	if ['draw']:
 		path = os.path.abspath(arguments['<directory>'])
 		ignore = arguments['<pattern>']
 		artist.draw(path, ignore)
