@@ -2,9 +2,9 @@ r"""
 codeink draws your Python modules into a graph.
 
 Usage:
-	codeink draw <directory> [--ignore <pattern>...]
+	codeink draw <directory> [--exclude <pattern>...]
 	codeink portrait <filepath>
-	codeink blame <filepath> [--ignore <pattern>...]
+	codeink blame <filepath> [--exclude <pattern>...]
 	codeink trace <filepath>
 	codeink (-h | --help)
 	codeink --version
@@ -12,7 +12,7 @@ Usage:
 Options:
 	-h --help	Show this screen.
 	--version	Show version.
-	--ignore	files to ignore on the analysis(Unix shell-style wildcards)
+	--exclude	files to ignore on the analysis (Unix shell-style wildcards)
 
 """
 
