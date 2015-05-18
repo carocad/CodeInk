@@ -11,13 +11,12 @@ from networkx.readwrite import json_graph
 from codeink.parchment import pkginfo
 from codeink.atelier import draftsman
 
-def draw(abspath, excluding):
-	# path can be either relative or abs path
-	dirs = list(pkginfo.get_directories(abspath))
+def draw(absdirpath, excluding):
+	dirs = list(pkginfo.get_directories(absdirpath))
 	modpaths = list(pkginfo.get_modules(dirs))
 	modpaths = pkginfo.filter_modules(modpaths, excluding)
-	if pkginfo.is_package(abspath):
-		dirs.append(os.path.dirname(abspath))
+	if pkginfo.is_package(absdirpath):
+		dirs.append(os.path.dirname(absdirpath))
 	graph = draftsman.sketch_blocks(modpaths, dirs)
 	# write json formatted data
 	data = json_graph.node_link_data(graph)
