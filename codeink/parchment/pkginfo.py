@@ -3,10 +3,12 @@ import pkgutil
 import fnmatch
 from itertools import filterfalse
 
-def get_directories(path):
+def get_directories(path, extension='.py'):
 	for root, dirs, files in os.walk(path):
-		if fnmatch.filter(files, '*.py'):
-			yield root
+		for file in files:
+			if fnmatch.fnmatch(file, '*' + extension):
+				yield root
+				break
 
 def is_package(abspath):
 	parent_path = os.path.dirname(abspath)
