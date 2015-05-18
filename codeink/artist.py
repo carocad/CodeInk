@@ -11,11 +11,11 @@ from networkx.readwrite import json_graph
 from codeink.parchment import pkginfo
 from codeink.atelier import draftsman
 
-def draw(abspath, ignores):
+def draw(abspath, excluding):
 	# path can be either relative or abs path
 	dirs = list(pkginfo.get_directories(abspath))
 	modpaths = list(pkginfo.get_modules(dirs))
-	modpaths = pkginfo.filter_modules(modpaths, ignores)
+	modpaths = pkginfo.filter_modules(modpaths, excluding)
 	if pkginfo.is_package(abspath):
 		dirs.append(os.path.dirname(abspath))
 	graph = draftsman.sketch_blocks(modpaths, dirs)
@@ -31,11 +31,11 @@ def portrait(absfilepath):
 	 # create temp dir in cwd to avoid writing protected files
 	start_drawing(data)
 
-def blame(absfilepath, ignores):
+def blame(absfilepath, excluding):
 	rootpath = pkginfo.find_root_pkg(absfilepath)
 	dirs = list(pkginfo.get_directories(rootpath))
 	modpaths = list(pkginfo.get_modules(dirs))
-	modpaths = pkginfo.filter_modules(modpaths, ignores)
+	modpaths = pkginfo.filter_modules(modpaths, excluding)
 	graph = draftsman.sketch_accusation(absfilepath, modpaths, dirs)
 	# write json formatted data
 	data = json_graph.node_link_data(graph)

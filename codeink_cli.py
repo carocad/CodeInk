@@ -12,7 +12,7 @@ Usage:
 Options:
 	-h --help	Show this screen.
 	--version	Show version.
-	--exclude	files to ignore on the analysis (Unix shell-style wildcards)
+	--exclude	files to exclude from the analysis (Unix shell-style wildcards)
 
 """
 
@@ -27,8 +27,8 @@ def main(args=None):
 
 	if arguments['draw']:
 		path = os.path.abspath(arguments['<directory>'])
-		ignore = arguments['<pattern>']
-		artist.draw(path, ignore)
+		exclude = arguments['<pattern>']
+		artist.draw(path, exclude)
 	elif arguments['trace']:
 		path = os.path.abspath(arguments['<filepath>'])
 		artist.trace(path)
@@ -37,8 +37,8 @@ def main(args=None):
 		artist.portrait(path)
 	elif arguments['blame']:
 		path = os.path.abspath(arguments['<filepath>'])
-		ignore = arguments['<pattern>']
-		artist.blame(path, ignore)
+		exclude = arguments['<pattern>']
+		artist.blame(path, exclude)
 	else:
 		print(__doc__)
 	return 0 # success
