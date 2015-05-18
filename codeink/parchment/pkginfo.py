@@ -1,7 +1,6 @@
 import os
 import pkgutil
 import fnmatch
-from itertools import filterfalse
 
 def get_directories(dirpath, extension='.py'):
 	for root, dirs, files in os.walk(dirpath):
@@ -25,12 +24,8 @@ def get_modules(directories):
 
 def filter_modules(modpaths, patterns):
 	for pattern in patterns:
-		# the pattern value is not frozen, thus a list has to be created
-		# every time to execute the filtering process. Other option would
-		# be to frozen the pattern value using functools.partial
-		modpaths = list(
-			filterfalse(lambda filepath: fnmatch.fnmatch(filepath, pattern),
-						modpaths))
+		modpaths = [ filepath for filepath in modpaths
+			  		 if not fnmatch.fnmatch(filepath, pattern) ]
 	return modpaths
 
 def find_root_pkg(absfilepath):
