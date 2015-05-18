@@ -24,7 +24,8 @@ from codeink import __version__
 
 def main(args=None):
 	arguments = docopt.docopt(__doc__, version = __version__)
-
+	# BUG: for some reason docopt cannot properly "understand" setup.py as
+	# 		a pattern, thus not making a proper exclusion match
 	if arguments['draw']:
 		path = os.path.abspath(arguments['<directory>'])
 		exclude = arguments['<pattern>']
