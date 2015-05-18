@@ -3,18 +3,18 @@ import pkgutil
 import fnmatch
 from itertools import filterfalse
 
-def get_directories(path, extension='.py'):
-	for root, dirs, files in os.walk(path):
+def get_directories(dirpath, extension='.py'):
+	for root, dirs, files in os.walk(dirpath):
 		for file in files:
 			if fnmatch.fnmatch(file, '*' + extension):
 				yield root
 				break
 
-def is_package(abspath):
-	parent_path = os.path.dirname(abspath)
-	for root, name, ispkg in pkgutil.iter_modules([parent_path]):
-		if (ispkg and hasattr(root, 'path')
-		and os.path.join(root.path, name) == abspath):
+def is_package(absdirpath):
+	parent_dir = os.path.dirname(absdirpath)
+	pkg_name = os.path.basename(parent_dir)
+	for root, name, ispkg in pkgutil.iter_modules([parent_dir]):
+		if ispkg and name == pkg_name:
 			return True
 	return False
 
