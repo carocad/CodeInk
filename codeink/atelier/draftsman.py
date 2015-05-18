@@ -21,7 +21,7 @@ def sketch_blocks(modulepaths, pkg_dirs):
 		# Calculate complexity and maintainability indexes
 		size, color = scientist.check_complexity(filepath)
 		# Insert current module info
-		module_info = {'name':filepath, 'size':size, 'color':color}
+		module_info = {'shape':'square', 'name':filepath, 'size':size, 'color':color}
 		graph.add_node(filepath, module_info)
 		# Find module imports
 		finder.run_script(filepath)
@@ -43,11 +43,12 @@ def sketch_footprint(absfilepath, project_dirs):
 			continue
 		modules_checked.append(modulepath)
 		print('processing:\t', modulepath)
-		finder = modulefinder.ModuleFinder(path=pkg_dirs)
+		finder = modulefinder.ModuleFinder(path=project_dirs)
 		# Calculate complexity and maintainability indexes
 		size, color = scientist.check_complexity(modulepath)
 		# Insert current module info
-		module_info = {'name':modulepath, 'size':size, 'color':color}
+		contour = 'square' if modulepath != absfilepath else 'cross'
+		module_info = {'shape':contour, 'name':modulepath, 'size':size, 'color':color}
 		graph.add_node(modulepath, module_info)
 		# Find module imports, ignore badmodules
 		finder.run_script(modulepath)
@@ -63,7 +64,7 @@ def sketch_accusation(targetpath, modulepaths, project_dirs):
 	# Calculate complexity and maintainability
 	size, color = scientist.check_complexity(targetpath)
 	# Insert target module info
-	target_info = {'name':targetpath, 'size':size, 'color':color}
+	target_info = {'shape':'cross' ,'name':targetpath, 'size':size, 'color':color}
 	graph.add_node(targetpath, target_info)
 	for modulepath in modulepaths:
 		print('processing:\t', modulepath)
@@ -73,7 +74,7 @@ def sketch_accusation(targetpath, modulepaths, project_dirs):
 			if (scientist.include_module(module)
 			and module.__file__ == targetpath):
 				size, color = scientist.check_complexity(modulepath)
-				module_info = {'name':modulepath, 'size':size, 'color':color}
+				module_info = {'shape':'square' ,'name':modulepath, 'size':size, 'color':color}
 				graph.add_node(modulepath, module_info)
 				graph.add_edge(modulepath, targetpath)
 
@@ -84,7 +85,7 @@ def sketch_profile(absfilepath):
 	module_name = os.path.basename(absfilepath)[:-3] # take the .py away
 	size, color = scientist.check_complexity(absfilepath)
 	# Insert target module info
-	module_info = {'name':module_name, 'size':size, 'color':color}
+	module_info = {'shape':'square', 'name':module_name, 'size':size, 'color':color}
 	graph.add_node(module_name, module_info)
 	modtree = None
 	with open(absfilepath) as source:
@@ -93,14 +94,14 @@ def sketch_profile(absfilepath):
 		funkcode = astunparse.unparse(function)
 		size, color = scientist.check_snippet_complexity(funkcode)
 		funkname = secretary.make_scoped_name(module_name, function.name)
-		funkinfo = {'name':funkname, 'size':size, 'color':color}
+		funkinfo = {'shape':'triangle-up' ,'name':funkname, 'size':size, 'color':color}
 		graph.add_node(funkname, funkinfo)
 		graph.add_edge(module_name, funkname)
 	for classobj in scientist.filtertype(ast.ClassDef, modtree.body):
 		classcode = astunparse.unparse(classobj)
 		size, color = scientist.check_snippet_complexity(classcode)
 		classname = secretary.make_scoped_name(module_name, classobj.name)
-		classinfo = {'name':classname, 'size':size, 'color':color}
+		classinfo = {'shape':'diamond' ,'name':classname, 'size':size, 'color':color}
 		graph.add_node(classname, classinfo)
 		graph.add_edge(module_name, classname)
 		for method in scientist.filtertype(ast.FunctionDef, classobj.body):
@@ -109,7 +110,7 @@ def sketch_profile(absfilepath):
 			methodname = secretary.make_scoped_name(module_name,
 													classobj.name,
 													method.name)
-			methodinfo = {'name':methodname, 'size':size, 'color':color}
+			methodinfo = {'shape':'triangle-down' ,'name':methodname, 'size':size, 'color':color}
 			graph.add_node(methodname, methodinfo)
 			graph.add_edge(classname, methodname)
 
@@ -120,9 +121,9 @@ def init(dirs):
 	# Initialize a graph object
 	attributes['graph'] = networkx.Graph()
 	# Create the most basic node
-	attributes['python'] = { 'type':'master', 'name':'Python',
+	attributes['python'] = { 'shape':'circle', 'name':'Python',
 							 'docstring':'Python builtin modules',
-							 'filepath':'builtin', 'size':10,
-							 'color':'#3776AB'} # color = dark blue
+							 'filepath':'builtin', 'size':300,
+							 'color':'hsl(207, 51%, 44%)'} # color = dark blue
 	#attributes['finder'] = modulefinder.ModuleFinder(path=dirs)
 	return attributes

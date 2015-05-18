@@ -28,37 +28,19 @@ d3.json("data.json", function(json) {
       				.attr("x2", function(d) { return d.target.x; })
       				.attr("y2", function(d) { return d.target.y; });
 
-	var python = json.nodes.filter( function(d) { return d.name == 'Python';});
-	var modules = json.nodes.filter( function(d) { return d.name != 'Python';});
-
-	var circle = svgContainer.selectAll('circle.node')
-				.data(python)
+	var nodes = svgContainer.selectAll('circle.node')
+				.data(json.nodes)
 				.enter()
-				.append('svg:circle')
+				.append('svg:path')
+					.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+					.attr("d", d3.svg.symbol()
+						 .size(function(d) { return d.size; })
+						 .type(function (d) { return d.shape; }))
 	   				.attr("class", "node")
-      				.attr("cx", function(d) { return d.x - d.size; })
-      				.attr("cy", function(d) { return d.y - d.size; })
-					.attr('r', function(d) { return d.size; })
 					.style("fill", function(d) { return d.color;})
       			.call(force.drag);
 
-	var rectangles = svgContainer.selectAll("rect.node")
-      			.data(modules)
-    			.enter()
-  				.append("svg:rect")
-      				.attr("class", "node")
-      				.attr("x", function(d) { return d.x - d.size; })
-      				.attr("y", function(d) { return d.y - d.size; })
-					.attr('rx', 4)
-					.attr('ry', 4)
-					.attr("width", function(d) { return 2.5066*d.size; })
-      				.attr("height", function(d) { return 2.5066*d.size; })
-					.style("fill", function(d) { return d3.hsl(d.color); })
-      			.call(force.drag);
-
-
-  circle.append("svg:title").text(function(d) { return d.name; });
-  rectangles.append("svg:title").text(function(d) { return d.name; });
+  nodes.append("svg:title").text(function(d) { return d.name; });
 
   svgContainer.style("opacity", 1e-6).transition()
      		  .duration(1000).style("opacity", 1);
@@ -69,10 +51,6 @@ d3.json("data.json", function(json) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-	circle.attr("cx", function(d) { return d.x; })
-       	   .attr("cy", function(d) { return d.y; });
-
-	rectangles.attr("x", function(d) { return d.x - d.size; })
-       	   .attr("y", function(d) { return d.y - d.size; });
+	nodes.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
 });

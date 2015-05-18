@@ -6,19 +6,19 @@ from itertools import filterfalse
 
 def check_complexity(filepath):
 	maintainability = 0
-	size = 3 # minimum size
+	size = 80 # minimum size
 	with open(filepath) as source:
 		cyclom, maintainability = calculate_complexity(source.read())
-		size += math.sqrt(cyclom)
+		size += math.pow(cyclom, 2)
 
 	hsl = secretary.value_to_HSL(maintainability)
 	color = secretary.hsl_to_str(hsl)
 	return size, color
 
-def check_snippet_complexity(strcode, initsize=3):
+def check_snippet_complexity(strcode, initsize=50):
 	size = initsize # minimum size
 	cyclom, maintainability = calculate_complexity(strcode)
-	size += math.sqrt(cyclom)
+	size += math.pow(cyclom, 2)
 
 	hsl = secretary.value_to_HSL(maintainability)
 	color = secretary.hsl_to_str(hsl)
