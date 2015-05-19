@@ -15,7 +15,7 @@ CodeInk draws the ihnerent relations of your modules along with their complexity
 - hover over a rounded rectangle to check which module is it
 
 o.O?
-====
+----
 
 the animations that CodeInk creates are base on:
 * symbols: rounded squares are modules --> Python is a circle (hint: installed modules)
