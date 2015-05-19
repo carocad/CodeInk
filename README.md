@@ -1,16 +1,16 @@
-# codeInk
+# CodeInk
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
-codeInk is a Python source code analyzer focused on complexity and interrelation of modules.
+CodeInk is a Python source code analyzer focused on complexity and interrelation of modules.
 
-codeInk draws the ihnerent relations of your modules along with their complexity and maintanability indexes in a beautiful graph powered by D3.js and SVG elements.
+CodeInk draws the ihnerent relations of your modules along with their complexity and maintanability indexes in a beautiful graph powered by D3.js and SVG elements.
 
-![radon drawing made by codeInk](radon_art.png)
+![radon drawing made by CodeInk](radon_art.png)
 - drawing of radon v1.2
 - hover over a rounded rectangle to check which module is it
 
 ## o.O?
-the animations that codeInk creates are base on:
+the animations that CodeInk creates are base on:
 * symbols: rounded squares are modules --> Python is a circle (hint: installed modules)
 * lines: each line represents an import
 * color: module maintainability index   green = :) --> red = :(
@@ -21,7 +21,7 @@ hint: if A imports B, and B imports C, then A imports B and C, right?
 
 ## install
 ```
-pip3 install git+https://github.com/carocad/codeInk.git
+pip3 install git+https://github.com/carocad/CodeInk.git
 ```
 ## usage
 ### draw a package structure
@@ -50,5 +50,5 @@ codeink portrait /path/to/module.py
 * D3.js (used automatically in the html head)
 
 ### notes
-In order to use codeInk you must make sure that your python version uses the same syntax as the code that you are analyzing i.e. analyzing a code written with Python v2.7 syntax while using Python v3.x will result in an error.
+In order to use CodeInk you must make sure that your python version uses the same syntax as the code that you are analyzing i.e. analyzing a code written with Python v2.7 syntax while using Python v3.x will result in an error.
 
