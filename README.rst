@@ -18,10 +18,11 @@ o.O?
 ----
 
 the animations that CodeInk creates are base on:
+
 * symbols: rounded squares are modules --> Python is a circle (hint: installed modules)
 * lines: each line represents an import
-* color: module maintainability index   green = :) --> red = :(
-* size: ciclomatic complexity           small = :) --> big = :(
+* color: module maintainability index ``green = :)`` --> ``red = :(``
+* size: ciclomatic complexity ``small = :)`` --> ``big = :(``
 
 *hint: if A imports B, and B imports C, then A imports B and C, right?*
 A --> B, B --> C, A --> B & C
