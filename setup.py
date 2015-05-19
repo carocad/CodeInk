@@ -21,7 +21,8 @@ setup(
 						'networkx>=1.9.1',
 						'radon>=1.2',
 					   	'astunparse>=1.2'],
-    classifiers = ['Development Status :: 3 - Alpha',
+    classifiers = [ 'Development Status :: 3 - Alpha',
+				   	'Intended Audience :: Developers',
 				 	'Topic :: Utilities',
 				 	'Programming Language :: Python :: 3'],
     entry_points = {'console_scripts': [ 'codeink = codeink_cli:main']}
