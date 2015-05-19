@@ -48,12 +48,12 @@ get an overview of a module::
 
 requirements
 ============
-* python v3.3 (previous versions not tested)
-* docopt v0.6.2 (previous versions not tested)
-* networkx v1.9.1 (previous versions not tested)
-* radon v1.2 (previous versions not tested)
-* astunparse v1.2 (previous versions not tested)
-* D3.js (used automatically in the html head)
+* python v3.3
+* `docopt v0.6.2 <https://pypi.python.org/pypi/docopt>`_
+* `networkx v1.9.1 <https://pypi.python.org/pypi/networkx/1.9.1>`_
+* `radon v1.2 <https://pypi.python.org/pypi/radon/1.2.1>`_
+* `astunparse v1.2 <https://pypi.python.org/pypi/astunparse/1.2.2>`_
+* `D3.js <http://d3js.org>`_ (used automatically in the html head)
 
 notes
 =====
