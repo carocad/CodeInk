@@ -23,12 +23,19 @@ the animations that CodeInk creates are base on:
 * color: module maintainability index   green = :) --> red = :(
 * size: ciclomatic complexity           small = :) --> big = :(
 
-hint: if A imports B, and B imports C, then A imports B and C, right?
-        A --> B, B --> C, A --> B & C
+*hint: if A imports B, and B imports C, then A imports B and C, right?*
+A --> B, B --> C, A --> B & C
 
-install::
+install
+=======
+with pip::
 
     pip3 install git+https://github.com/carocad/CodeInk.git
+    
+manually::
+
+    git clone https://github.com/carocad/CodeInk.git
+    python3 setup.py install
 
 usage
 =====
