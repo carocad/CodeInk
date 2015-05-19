@@ -23,35 +23,24 @@ the animations that CodeInk creates are base on:
 hint: if A imports B, and B imports C, then A imports B and C, right?
         A --> B, B --> C, A --> B & C
 
-install
-=======
+install:
 
-```
-pip3 install git+https://github.com/carocad/CodeInk.git
-```
+        pip3 install git+https://github.com/carocad/CodeInk.git
+
 usage
 =====
 
-draw a package structure
-------------------------
-```
-$ codeink draw /path/to/project
-```
-trace a module's imports
-------------------------
-```
-codeink trace /path/to/module.py
-```
-check who imports a module
---------------------------
-```
-codeink blame /path/to/module.py
-```
-get an overview of a module
----------------------------
-```
-codeink portrait /path/to/module.py
-```
+draw a package structure::
+        $ codeink draw /path/to/project
+
+trace a module's imports::
+        $ codeink trace /path/to/module.py
+
+check who imports a module::
+        $ codeink blame /path/to/module.py
+
+get an overview of a module::
+        $ codeink portrait /path/to/module.py
 
 requirements
 ============
