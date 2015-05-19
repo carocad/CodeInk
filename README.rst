@@ -1,7 +1,9 @@
 =======
 CodeInk
 =======
-[![lice==nse](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+.. image:: https://img.shields.io/badge/license-Apache%202.0-blue.svg
+    :alt: LICENSE
+    :target: LICENSE
 
 CodeInk is a Python source code analyzer focused on complexity and interrelation of modules.
 
