@@ -13,7 +13,6 @@ def is_package(absdirpath):
 	parent_dir = os.path.dirname(absdirpath)
 	pkg_name = os.path.basename(absdirpath)
 	for root, name, ispkg in pkgutil.iter_modules([parent_dir]):
-		print(root, name, ispkg)
 		if ispkg and name == pkg_name:
 			return True
 	return False
