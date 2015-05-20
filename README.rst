@@ -20,7 +20,7 @@ o.O?
 
 the animations that CodeInk creates are base on:
 
-* symbols: rounded squares are modules --> Python is a circle (hint: installed modules)
+* symbols: ``squares = modules``, ``circle = Python``, ``cross = target module``, ``class = diamond``, ``function = triangle-up``, ``method = triangle-down``
 * lines: each line represents an import
 * color: module maintainability index ``green = :)`` --> ``red = :(``
 * size: ciclomatic complexity ``small = :)`` --> ``big = :(``
