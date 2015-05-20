@@ -6,7 +6,7 @@ setup(
     name = 'codeInk',
     version = codeink.__version__,
     description = 'codeInk draws your Python source code into beautiful graph structures',
-    long_description = open('README.md').read(),
+    long_description = open('README.rst').read(),
     author = codeink.__author__,
     author_email = codeink.__author_email__,
     license = codeink.__license__,
