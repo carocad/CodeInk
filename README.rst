@@ -7,6 +7,10 @@ CodeInk
 
 .. image:: https://travis-ci.org/carocad/CodeInk.svg?branch=master
     :target: https://travis-ci.org/carocad/CodeIknra
+    
+    
+.. image:: https://coveralls.io/repos/carocad/CodeInk/badge.svg?branch=master
+  :target: https://coveralls.io/r/carocad/CodeInk?branch=master
 
 CodeInk is a Python source code analyzer focused on complexity and interrelation of modules.
 
@@ -63,7 +67,7 @@ get an overview of a module::
 
 requirements
 ============
-* python v3.3
+* python v2.7 - v3.4
 * `docopt v0.6.2 <https://pypi.python.org/pypi/docopt>`_
 * `networkx v1.9.1 <https://pypi.python.org/pypi/networkx/1.9.1>`_
 * `radon v1.2 <https://pypi.python.org/pypi/radon/1.2.1>`_
