@@ -9,7 +9,7 @@ install:
 
 script:
   - py.test -vv
-  - coverage run --source=codeink py.test
+  - coverage run --source=codeink -m py.test
 
 after_success:
   - coveralls
