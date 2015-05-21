@@ -9,7 +9,7 @@ install:
 
 script:
   - py.test -vv
-  - coverage run codeink_cli.py draw .
+  - coverage run --source=codeink py.test
 
 after_success:
   - coveralls
