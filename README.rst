@@ -5,6 +5,9 @@ CodeInk
     :alt: LICENSE
     :target: LICENSE
 
+.. image:: https://travis-ci.org/carocad/CodeInk.svg?branch=master
+    :target: https://travis-ci.org/carocad/CodeIknra
+
 CodeInk is a Python source code analyzer focused on complexity and interrelation of modules.
 
 CodeInk draws the ihnerent relations of your modules along with their complexity and
