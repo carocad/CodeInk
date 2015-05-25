@@ -22,7 +22,7 @@ def test_function_info():
 	tree = peephole.parse(guineapig_path)
 	funk = list(peephole.get_functions(tree))[0] # unique function in the file
 	funk_info = {'type':'function', 'name':'foo', 'docstring':'foo function',
-				 'definition':'\n\ndef foo():\n' ,'filepath':guineapig_path, 'lineno':2}
+				 'filepath':guineapig_path, 'lineno':2}
 	assert funk_info == secretary.get_function_info(funk, guineapig_path)
 
 def test_get_class_info():
@@ -30,8 +30,7 @@ def test_get_class_info():
 	tree = peephole.parse(guineapig_path)
 	classdef = list(peephole.get_classes(tree))[0] # unique function in the file
 	class_info = {'type':'class', 'name':'bar', 'docstring':'None',
-				  'definition':'\n\nclass bar(object):\n' ,'filepath':guineapig_path,
-				  'lineno':6 }
+				  'filepath':guineapig_path, 'lineno':6 }
 	assert class_info == secretary.get_class_info(classdef, guineapig_path)
 
 def test_value_to_HSL():

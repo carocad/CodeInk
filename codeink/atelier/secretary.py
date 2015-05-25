@@ -12,20 +12,18 @@ def get_module_info(tree, absfilepath):
 def get_function_info(func, path):
 	_name = func.name
 	_doc = peephole.get_attr(func, 'doc')
-	_str = peephole.to_string(func)
 	_path = path
 	_lineno = func.lineno
 	return {'type':'function', 'name':_name, 'docstring':_doc,
-		   'definition':_str, 'filepath':_path, 'lineno':_lineno}
+		    'filepath':_path, 'lineno':_lineno}
 
 def get_class_info(classDef, path):
 	_name = classDef.name
 	_doc = peephole.get_attr(classDef, 'doc')
-	_str = peephole.to_string(classDef)
 	_path = path
 	_lineno = classDef.lineno
 	return {'type':'class', 'name':_name, 'docstring':_doc,
-		   'definition':_str, 'filepath':_path, 'lineno':_lineno}
+		    'filepath':_path, 'lineno':_lineno}
 
 def value_to_HSL(value):
 	# max(value) = 100
