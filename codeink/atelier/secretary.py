@@ -1,16 +1,18 @@
 
-#import pyPeephole
+import os
 
-def get_module_info(name, tree, path):
-	_name = name
-	_doc = pyPeephole.get_attr(tree, 'doc')
-	_path = path
+from codeink.parchment import peephole
+
+def get_module_info(tree, absfilepath):
+	_name = os.path.basename(absfilepath)[:-3] # strip the .py from filepath
+	_doc = peephole.get_attr(tree, 'doc')
+	_path = absfilepath
 	return {'type':'module', 'name':_name, 'docstring':_doc, 'filepath':_path}
 
 def get_function_info(func, path):
 	_name = func.name
-	_doc = pyPeephole.get_attr(func, 'doc')
-	_str = pyPeephole.to_string(func)
+	_doc = peephole.get_attr(func, 'doc')
+	_str = peephole.to_string(func)
 	_path = path
 	_lineno = func.lineno
 	return {'type':'function', 'name':_name, 'docstring':_doc,
@@ -18,8 +20,8 @@ def get_function_info(func, path):
 
 def get_class_info(classDef, path):
 	_name = classDef.name
-	_doc = pyPeephole.get_attr(classDef, 'doc')
-	_str = pyPeephole.to_string(classDef)
+	_doc = peephole.get_attr(classDef, 'doc')
+	_str = peephole.to_string(classDef)
 	_path = path
 	_lineno = classDef.lineno
 	return {'type':'class', 'name':_name, 'docstring':_doc,
@@ -33,7 +35,7 @@ def value_to_HSL(value):
 	return (hue, saturation, lightness)
 
 def hsl_to_str(HSL):
-    return 'hsl({h},{s}%, {l}%)'.format(h=HSL[0], s=HSL[1], l=HSL[2])
+    return 'hsl({h}, {s}%, {l}%)'.format(h=HSL[0], s=HSL[1], l=HSL[2])
 
 def make_scoped_name(*scopes):
 	return '.'.join(scopes)
