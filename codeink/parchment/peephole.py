@@ -7,7 +7,6 @@
 import ast
 import astunparse
 import copy
-import functools
 import textwrap
 
 def parse(path):
@@ -47,15 +46,6 @@ def get_attr(node, name):
 		return str(ast.get_docstring(node, clean=True))
 	if hasattr(node, name):
 		return getattr(node, name)
-	return None
-
-@functools.lru_cache(maxsize=32)
-def find(node, name):
-	""" find a child (recursively) inside node with the specified name."""
-	for child in ast.walk(node):
-		if (isinstance(child, ast.ClassDef) or isinstance(child, ast.FunctionDef)) \
-			and child.name == name:
-				return child
 	return None
 
 def to_string(node, doc=False, lineno=False):
