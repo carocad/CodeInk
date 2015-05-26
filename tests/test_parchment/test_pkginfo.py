@@ -32,7 +32,8 @@ def test_get_modules():
 	dirs = pkginfo.get_directories(pig_path)
 	# test correct module recognizition
 	correct_value = set([os.path.join(pig_path, 'cage1', 'pig1.py'),
-						 os.path.join(pig_path, 'cage2', 'pig2.py') ])
+						 os.path.join(pig_path, 'cage2', 'pig2.py'),
+						 os.path.join(pig_path, 'lab_assistant.py')])
 	assert correct_value == set(pkginfo.get_modules(dirs))
 	# test correct non-module recognizition
 	cage3_dir = [os.path.join(pig_path, 'cage3')]
