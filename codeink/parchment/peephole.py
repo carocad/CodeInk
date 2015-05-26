@@ -13,16 +13,13 @@ def parse(path):
 	"parse a file at path and returns an AST tree structure"
 	tree = None
 	try:
-		source_code = open(path)
-		tree = ast.parse(source_code.read(), path)
-		return tree
+		with open(path) as source_code:
+			tree = ast.parse(source_code.read(), path)
+			return tree
 	except SyntaxError as e: ## parsing a python code from a different Python version
 		print('Invalid syntax: {text} in {filename}:L{lineno}'.format(text=e.text,
 															 filename=e.filename,
 															 lineno=e.lineno))
-	finally:
-		source_code.close()
-	return tree
 
 def get_classes(node):
 	"get the class definitions inside node"
