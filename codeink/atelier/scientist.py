@@ -2,7 +2,10 @@
 import math
 from radon import metrics
 from codeink.atelier import secretary
-from itertools import filterfalse
+try:
+	from itertools import filterfalse
+except ImportError:
+	from itertools import ifilterfalse as filterfalse
 
 def check_complexity(filepath):
 	minsize = 80 # minimum size
