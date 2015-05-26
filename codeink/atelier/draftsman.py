@@ -26,7 +26,7 @@ def sketch_blocks(modulepaths, pkg_dirs):
 		# Find module imports
 		finder.run_script(filepath)
 		for edge in scientist.compute_edges(filepath, Python, finder.modules.values(),
-											finder.badmodules.values()):
+											finder.badmodules.keys()):
 			graph.add_edge(*edge)
 	return graph
 
