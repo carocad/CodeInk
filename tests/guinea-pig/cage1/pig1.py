@@ -1,7 +1,10 @@
 
 def foo():
-	''' foo function'''
-	pass
+    ''' foo function'''
+    pass
 
 class bar(object):
-	pass
+    def func1():
+        pass
+    def func2():
+        pass
