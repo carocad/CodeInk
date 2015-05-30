@@ -2,7 +2,8 @@
 import math
 from radon import metrics
 from codeink.atelier import secretary
-filterfalse = safe_import(origin='itertools', funk1='filterfalse', funk2='ifilterfalse')
+from codeink.parchment import tools
+filterfalse = tools.safe_import(origin='itertools', funk1='filterfalse', funk2='ifilterfalse')
 
 def check_complexity(filepath, minsize=80):
     with open(filepath) as source:
@@ -38,23 +39,3 @@ def include_module(module):
 def filtertype(objtype, iterable, filterfalse=False):
     filterfn = filter if not filterfalse else filterfalse
     return filterfn(lambda element: isinstance(element, objtype), iterable)
-
-
-def safe_import(origin, funk1, funk2):
-    """Safely import a function whose name was changed from a module whose name was not
-    Example:
-    # instead of writting this
-        try:
-            from itertools import filterfalse
-        except ImportError:
-            from itertools import ifilterfalse as filterfalse
-    # write this
-        filterfalse = safe_import('itertools', 'filterfalse', 'ifilterfalse')
-    """
-    try:
-        hook = __import__(origin, globals(), locals(), [funk1], 0)
-        return getattr(hook, funk1)
-    except:
-        hook = __import__(origin, globals(), locals(), [funk2], 0)
-        return getattr(hook, funk2)
-
