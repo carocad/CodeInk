@@ -1,3 +1,4 @@
+"pig1 module"
 
 def foo():
     ''' foo function'''
