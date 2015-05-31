@@ -11,13 +11,8 @@ import textwrap
 
 def parse(path):
     "parse a file at path and returns an AST tree structure"
-    try:
-        with open(path) as source_code:
-            return ast.parse(source_code.read(), path)
-    except SyntaxError as e: ## parsing a python code from a different Python version
-        print('Invalid syntax: {text} in {filename}:L{lineno}'.format(text=e.text,
-                                                                      filename=e.filename,
-                                                                      lineno=e.lineno))
+    with open(path) as source_code:
+        return ast.parse(source_code.read(), path)
 
 def get_classes(node):
     "get the class definitions inside node"
