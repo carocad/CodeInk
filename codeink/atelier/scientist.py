@@ -5,11 +5,7 @@ from codeink.atelier import secretary
 from codeink.parchment import tools
 filterfalse = tools.safe_import(origin='itertools', funk1='filterfalse', funk2='ifilterfalse')
 
-def check_complexity(filepath, minsize=80):
-    with open(filepath) as source:
-        return check_snippet_complexity(source.read(), minsize)
-
-def check_snippet_complexity(strcode, initsize=50):
+def get_size_color(strcode, initsize=50):
     size = initsize # minimum size
     cyclom, maintainability = calculate_complexity(strcode)
     size += math.pow(cyclom, 2)
