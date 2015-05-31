@@ -7,6 +7,7 @@ import astunparse
 
 from codeink.atelier import secretary
 from codeink.atelier import scientist
+from codeink.parchment import peephole
 
 def sketch_blocks(modulepaths, pkg_dirs):
     attributes = init(pkg_dirs)
@@ -97,21 +98,21 @@ def sketch_profile(absfilepath):
     modtree = None
     with open(absfilepath) as source:
         modtree = ast.parse(source.read(), module_name)
-    for function in scientist.filtertype(ast.FunctionDef, modtree.body):
+    for function in peephole.get_functions(modtree):
         funkcode = astunparse.unparse(function)
         size, color = scientist.get_size_color(funkcode)
         funkname = secretary.make_scoped_name(module_name, function.name)
         funkinfo = {'shape':'triangle-up' ,'name':funkname, 'size':size, 'color':color}
         graph.add_node(funkname, funkinfo)
         graph.add_edge(module_name, funkname)
-    for classobj in scientist.filtertype(ast.ClassDef, modtree.body):
+    for classobj in peephole.get_classes(modtree):
         classcode = astunparse.unparse(classobj)
         size, color = scientist.get_size_color(classcode)
         classname = secretary.make_scoped_name(module_name, classobj.name)
         classinfo = {'shape':'diamond' ,'name':classname, 'size':size, 'color':color}
         graph.add_node(classname, classinfo)
         graph.add_edge(module_name, classname)
-        for method in scientist.filtertype(ast.FunctionDef, classobj.body):
+        for method in peephole.get_functions(classobj):
             methodcode = astunparse.unparse(method)
             size, color = scientist.get_size_color(methodcode)
             methodname = secretary.make_scoped_name(module_name, classobj.name,
