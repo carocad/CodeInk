@@ -99,21 +99,21 @@ def sketch_profile(absfilepath):
         modtree = ast.parse(source.read(), module_name)
     for function in scientist.filtertype(ast.FunctionDef, modtree.body):
         funkcode = astunparse.unparse(function)
-        size, color = scientist.check_snippet_complexity(funkcode)
+        size, color = scientist.get_size_color(funkcode)
         funkname = secretary.make_scoped_name(module_name, function.name)
         funkinfo = {'shape':'triangle-up' ,'name':funkname, 'size':size, 'color':color}
         graph.add_node(funkname, funkinfo)
         graph.add_edge(module_name, funkname)
     for classobj in scientist.filtertype(ast.ClassDef, modtree.body):
         classcode = astunparse.unparse(classobj)
-        size, color = scientist.check_snippet_complexity(classcode)
+        size, color = scientist.get_size_color(classcode)
         classname = secretary.make_scoped_name(module_name, classobj.name)
         classinfo = {'shape':'diamond' ,'name':classname, 'size':size, 'color':color}
         graph.add_node(classname, classinfo)
         graph.add_edge(module_name, classname)
         for method in scientist.filtertype(ast.FunctionDef, classobj.body):
             methodcode = astunparse.unparse(method)
-            size, color = scientist.check_snippet_complexity(methodcode)
+            size, color = scientist.get_size_color(methodcode)
             methodname = secretary.make_scoped_name(module_name, classobj.name,
                                                     method.name)
             methodinfo = {'shape':'triangle-down' ,'name':methodname, 'size':size, 'color':color}

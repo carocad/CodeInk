@@ -5,13 +5,14 @@ import modulefinder
 from codeink.atelier import scientist
 from codeink.parchment import pkginfo
 
-def test_check_complexity():
+def test_get_size_color():
     parent_dir = os.path.dirname(os.path.dirname(__file__))
     guineapig_path = os.path.join(parent_dir, 'guinea-pig', 'cage2', 'pig2.py')
     default = 80
 
     answer = (default+1, 'hsl(120.0, 90%, 40%)')
-    assert answer == scientist.check_complexity(guineapig_path)
+    with open(guineapig_path) as test_source:
+        assert answer == scientist.get_size_color(test_source.read(), initsize=default)
 
 def test_compute_edges():
     parent_dir = os.path.dirname(os.path.dirname(__file__))
