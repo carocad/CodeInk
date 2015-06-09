@@ -65,23 +65,25 @@ def value_to_HSL(value):
 			to the converted value.
 	"""
 	# max(value) = 100
-	hue = value * 1.2 # 1.2 = green, 0 = red
+	hue = int(value * 1.2) # 1.2 = green, 0 = red
 	saturation = 90
 	lightness = 40
 	return (hue, saturation, lightness)
 
-def hsl_to_str(HSL):
+def hsl_to_str(hue, sat, light):
 	""" Convert an HSL color value into a string.
 
 	Args:
-		HSL (tuple(int)): hue, saturation and lightness
+		hue (int): value between 0-360
+		sat (int): value between 0-100
+		light (int): value between 0-100
 	Returns:
 		str: string representation of the HSL tuple. Note that
 			the hue is an integer, whereas the saturation and
 			lightness are porcentages.
 	"""
 
-	return 'hsl({h}, {s}%, {l}%)'.format(h=HSL[0], s=HSL[1], l=HSL[2])
+	return 'hsl({h}, {s}%, {l}%)'.format(h=hue, s=sat, l=light)
 
 def make_scoped_name(*scopes):
 	""" Convert a series of strings into a single string
