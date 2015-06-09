@@ -4,11 +4,10 @@ CodeInk
 .. image:: https://img.shields.io/badge/license-Apache%202.0-blue.svg
     :alt: LICENSE
     :target: LICENSE
-
+    
 .. image:: https://travis-ci.org/carocad/CodeInk.svg?branch=master
-    :target: https://travis-ci.org/carocad/CodeIknra
-    
-    
+    :target: https://travis-ci.org/carocad/CodeInk
+
 .. image:: https://coveralls.io/repos/carocad/CodeInk/badge.svg?branch=master
   :target: https://coveralls.io/r/carocad/CodeInk?branch=master
 
