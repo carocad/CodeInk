@@ -10,7 +10,7 @@ def test_get_size_color():
     guineapig_path = os.path.join(parent_dir, 'guinea-pig', 'cage2', 'pig2.py')
     default = 80
 
-    answer = (default+1, 'hsl(120.0, 90%, 40%)')
+    answer = (default+1, 'hsl(120, 90%, 40%)')
     with open(guineapig_path) as test_source:
         assert answer == scientist.get_size_color(test_source.read(), initsize=default)
 

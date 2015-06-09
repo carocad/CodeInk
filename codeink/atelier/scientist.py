@@ -10,20 +10,20 @@ def get_size_color(strcode, initsize=50):
     """base on the `strcode` string, calculate its complexity
     and maintainabiliy indexes and transform those into size and
     color values.
-    
+
     Args:
         strcode (str): source code to use for the calculations.
         initsize (int, optional): minimum value of size.
     Returns:
         tuple(int): size and color of the passed source code.
-    
+
     """
     size = initsize # minimum size
     cyclom, maintainability = calculate_complexity(strcode)
     size += math.pow(cyclom, 2)
 
     hsl = secretary.value_to_HSL(maintainability)
-    color = secretary.hsl_to_str(hsl)
+    color = secretary.hsl_to_str(*hsl)
     return size, color
 
 def calculate_complexity(sourcecode):

@@ -43,9 +43,10 @@ def test_value_to_HSL():
 	assert (120, 90, 40) == secretary.value_to_HSL(green)
 
 def test_hsl_to_str():
-	green = 100 # max
-	answer = 'hsl(120.0, 90%, 40%)'
-	assert answer == secretary.hsl_to_str(secretary.value_to_HSL(green))
+    green = 100 # max
+    answer = 'hsl(120, 90%, 40%)'
+    hsl = secretary.value_to_HSL(green)
+    assert answer == secretary.hsl_to_str(*hsl)
 
 def test_make_scoped_name():
 	child = 'foo'
