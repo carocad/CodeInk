@@ -1,3 +1,4 @@
+"""General mathematic related functions"""
 
 import math
 from radon import metrics
@@ -6,6 +7,17 @@ from codeink.parchment import tools
 filterfalse = tools.safe_import(origin='itertools', funk1='filterfalse', funk2='ifilterfalse')
 
 def get_size_color(strcode, initsize=50):
+    """base on the `strcode` string, calculate its complexity
+    and maintainabiliy indexes and transform those into size and
+    color values.
+    
+    Args:
+        strcode (str): source code to use for the calculations.
+        initsize (int, optional): minimum value of size.
+    Returns:
+        tuple(int): size and color of the passed source code.
+    
+    """
     size = initsize # minimum size
     cyclom, maintainability = calculate_complexity(strcode)
     size += math.pow(cyclom, 2)
