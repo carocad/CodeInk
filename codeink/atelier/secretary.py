@@ -61,7 +61,7 @@ def value_to_HSL(value):
     Args:
         value (int): integer betwee 0-100 to be converted.
     Returns:
-        tuple(int): hue, saturation and lightnes corresponding
+        Tuple[int]: hue, saturation and lightnes corresponding
           to the converted value.
     """
     # max(value) = 100
@@ -84,13 +84,13 @@ def hsl_to_str(hue, sat, light):
     """
     return 'hsl({h}, {s}%, {l}%)'.format(h=hue, s=sat, l=light)
 
-def make_scoped_name(*scopes):
+def make_scoped_name(*args):
     """ Convert a series of strings into a single string
     representing joined by points. This convertion represents
     Pythons scope convention.i.e. pkg.subpkg.module
 
     Args:
-        *scopes (str): positional string values. The strings will
+        *ags: list of string. The strings will
           joined in FIFO order.
     Returns:
         str: string-scope representation.
