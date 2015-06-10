@@ -13,7 +13,7 @@ def get_size_color(strcode, initsize=50):
 
     Args:
         strcode (str): source code to use for the calculations.
-        initsize (int, optional): minimum value of size.
+        initsize (Optional[int]): minimum value of size.
     Returns:
         tuple(int): size and color of the passed source code.
 
