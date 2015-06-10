@@ -13,7 +13,7 @@ def get_directories(dirpath, extension='.py'):
     Args:
         dirpath(str): directory path to be use as start point;
             both absolute and relative path are supported.
-        extension(str): file extension to check files against.
+        extension(Optional[str]): file extension to check files against.
     Yields:
         str: path of a directory containing files with the
             requested extension.
@@ -60,12 +60,12 @@ def filter_modules(modpaths, patterns):
     the filename.
 
     Args:
-        modpaths (list): list of absolute modules filepath to
+        modpaths (List[str]): list of absolute modules filepath to
           filter
-        patterns (list(str)): list of strings with Unix shell-style
+        patterns (List[str]): list of strings with Unix shell-style
           wildcards.
     Returns:
-        list(str): list of absolute filepaths that didnt match
+        List[str]: list of absolute filepaths that didnt match
           any pattern.
     """
     for pattern in patterns:
