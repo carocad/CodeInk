@@ -95,4 +95,4 @@ def make_scoped_name(*args):
     Returns:
         str: string-scope representation.
     """
-    return '.'.join(scopes)
+    return '.'.join(args)
