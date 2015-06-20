@@ -1,3 +1,6 @@
+""" functions in charge of creating graph objects and populating
+them with the requested information"""
+
 import os
 import ast
 import modulefinder
@@ -10,6 +13,15 @@ from codeink.atelier import scientist
 from codeink.parchment import peephole
 
 def sketch_blocks(modulepaths, pkg_dirs):
+    """Creates a graph of all the modules in `modulepaths` that are related to each other by their
+    imports. The directories used to resolve an import is `pkg_dirs`
+    
+    Args:
+        modulepaths (List[str]): list of modules filepaths to analyze.
+        pkg_dirs (List[str]): list of directories used to resolve the imports
+    Returns:
+        networkx.Graph: graph of the modules as nodes with their imports as edges.
+    """
     attributes = init(pkg_dirs)
     graph = attributes['graph']
     Python = 'python'
@@ -33,6 +45,18 @@ def sketch_blocks(modulepaths, pkg_dirs):
     return graph
 
 def sketch_footprint(absfilepath, project_dirs):
+    """Creates a graph of all the modules related to `absfilepath` by his
+    imports. The directories used to resolve an import is `project_dirs`.
+    Note that he relations are recursive,i.e. the modules imported by `absfilepath`
+    as well as modules imported by those other modules, are included in the graph
+    until no more modules are left to analyze.
+    
+    Args:
+        absfilepath (str): filepath of the module to analyze.
+        project_dirs (List[str]): list of directories used to resolve the imports
+    Returns:
+        networkx.Graph: graph of the modules as nodes with their imports as edges.
+    """
     attributes = init(project_dirs)
     graph = attributes['graph']
     Python = 'python'
@@ -63,6 +87,16 @@ def sketch_footprint(absfilepath, project_dirs):
     return graph
 
 def sketch_accusation(targetpath, modulepaths, project_dirs):
+    """Creates a graph of all the modules in `modulepaths` that import
+    the module at `targetpath`. The directories used to resolve an import are `project_dirs`
+    
+    Args:
+        targetpath (str): filepath of the module whose import status is being checked.
+        modulepaths (List[str]): list of modules filepaths to check for imports.
+        project_dirs (List[str]): list of directories used to resolve the imports 
+    Returns:
+        networkx.Graph: graph of the module as nodes with their imports as edges.
+    """
     graph = networkx.Graph()
     # Calculate complexity and maintainability
     with open(targetpath) as source:
@@ -87,6 +121,16 @@ def sketch_accusation(targetpath, modulepaths, project_dirs):
     return graph
 
 def sketch_profile(absfilepath):
+    """Creates a graph of all the functions, classes and methods defined in the module at
+    `absfilepath`.
+    
+    Args:
+        absfilepath (str): absolute filepath of the module whose definition are 
+          being checked.
+    Returns:
+        networkx.Graph: graph of the functions and classes as nodes with their scopes
+          as edges.
+    """
     graph = networkx.Graph()
     module_name = os.path.basename(absfilepath)[:-3] # take the .py away
     with open(filepath) as source:
