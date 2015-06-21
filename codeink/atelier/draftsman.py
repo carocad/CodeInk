@@ -134,15 +134,13 @@ def sketch_profile(absfilepath):
     """
     graph = networkx.Graph()
     module_name = os.path.basename(absfilepath)[:-3] # take the .py away
-    with open(filepath) as source:
-        size, color = scientist.get_size_color(absfilepath.read(), initsize=80)
-
+    with open(absfilepath) as source:
+        code = source.read()
+        size, color = scientist.get_size_color(code, initsize=80)
+        modtree = ast.parse(code, module_name)
     # Insert target module info
     module_info = {'shape':'square', 'name':module_name, 'size':size, 'color':color}
     graph.add_node(module_name, module_info)
-    modtree = None
-    with open(absfilepath) as source:
-        modtree = ast.parse(source.read(), module_name)
     for function in peephole.get_functions(modtree):
         funkcode = astunparse.unparse(function)
         size, color = scientist.get_size_color(funkcode)
