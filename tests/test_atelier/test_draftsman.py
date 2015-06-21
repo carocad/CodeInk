@@ -1,11 +1,15 @@
 import os
+import ast
 
 import networkx
+import astunparse
 from networkx.readwrite import json_graph
 
 from codeink.atelier import scientist
 from codeink.atelier import draftsman
 from codeink.parchment import pkginfo
+from codeink.parchment import peephole
+from codeink.atelier import secretary
 
 def test_sketch_blocks():
     cwd = os.path.dirname(__file__)
@@ -100,4 +104,56 @@ def test_accusation():
     answer.add_edge(assistant, pig1)
     answer.add_edge(pig2, pig1)
 
+    assert networkx.is_isomorphic(answer, graph)
+
+def test_profile():
+    cwd = os.path.dirname(__file__)
+    test_dir = os.path.dirname(cwd)
+    pig_path = os.path.join(test_dir, 'guinea-pig')
+    pig1 = os.path.join(pig_path, 'cage1', 'pig1.py')
+    module_name = 'pig1'
+
+    graph = draftsman.sketch_profile(pig1)
+
+    answer = networkx.Graph()
+    with open(pig1) as source:
+        code = source.read()
+        size1, color1 = scientist.get_size_color(code, initsize=80)
+        modtree = ast.parse(code, module_name)
+    answer.add_node(module_name, {'shape':'square', 'name':pig1, 'size':size1, 'color':color1})
+
+    function = list(peephole.get_functions(modtree))[0]
+    funkcode = astunparse.unparse(function)
+    size, color = scientist.get_size_color(funkcode)
+    funkname = secretary.make_scoped_name(module_name, function.name)
+    funkinfo = {'shape':'triangle-up' ,'name':funkname, 'size':size, 'color':color}
+    answer.add_node(funkname, funkinfo)
+    answer.add_edge(module_name, funkname)
+
+    classdef = list(peephole.get_classes(modtree))[0]
+    classcode = astunparse.unparse(classdef)
+    size, color = scientist.get_size_color(classcode)
+    classname = secretary.make_scoped_name(module_name, classdef.name)
+    classinfo = {'shape':'diamond' ,'name':classname, 'size':size, 'color':color}
+    answer.add_node(classname, classinfo)
+    answer.add_edge(module_name, classname)
+
+    method1 = list(peephole.get_functions(classdef))[0]
+    method1code = astunparse.unparse(method1)
+    size, color = scientist.get_size_color(method1code)
+    methodname = secretary.make_scoped_name(classname, method1.name)
+    methodinfo = {'shape':'triangle-down' ,'name':methodname, 'size':size, 'color':color}
+    answer.add_node(methodname, methodinfo)
+    answer.add_edge(classname, methodname)
+
+    method2 = list(peephole.get_functions(classdef))[1]
+    method2code = astunparse.unparse(method2)
+    size, color = scientist.get_size_color(method2code)
+    methodname = secretary.make_scoped_name(classname, method2.name)
+    methodinfo = {'shape':'triangle-down' ,'name':methodname, 'size':size, 'color':color}
+    answer.add_node(methodname, methodinfo)
+    answer.add_edge(classname, methodname)
+
+    print('-------graph---------\n', json_graph.node_link_data(graph))
+    print('-------answer---------\n', json_graph.node_link_data(answer))
     assert networkx.is_isomorphic(answer, graph)
