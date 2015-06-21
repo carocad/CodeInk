@@ -15,7 +15,7 @@ from codeink.parchment import peephole
 def sketch_blocks(modulepaths, pkg_dirs):
     """Creates a graph of all the modules in `modulepaths` that are related to each other by their
     imports. The directories used to resolve an import is `pkg_dirs`
-    
+
     Args:
         modulepaths (List[str]): list of modules filepaths to analyze.
         pkg_dirs (List[str]): list of directories used to resolve the imports
@@ -46,11 +46,11 @@ def sketch_blocks(modulepaths, pkg_dirs):
 
 def sketch_footprint(absfilepath, project_dirs):
     """Creates a graph of all the modules related to `absfilepath` by his
-    imports. The directories used to resolve an import is `project_dirs`.
-    Note that he relations are recursive,i.e. the modules imported by `absfilepath`
+    imports. The directories used to resolve an import are `project_dirs`.
+    Note that the relations are recursive,i.e. the modules imported by `absfilepath`
     as well as modules imported by those other modules, are included in the graph
     until no more modules are left to analyze.
-    
+
     Args:
         absfilepath (str): filepath of the module to analyze.
         project_dirs (List[str]): list of directories used to resolve the imports
@@ -79,7 +79,8 @@ def sketch_footprint(absfilepath, project_dirs):
         graph.add_node(modulepath, module_info)
         # Find module imports, ignore badmodules
         finder.run_script(modulepath)
-        for edge in scientist.compute_edges(absfilepath, Python, finder.modules.values()):
+        for edge in scientist.compute_edges(modulepath, Python, finder.modules.values(),
+                                            finder.badmodules.keys()):
             graph.add_edge(*edge)
         for module in finder.modules.values():
             if scientist.include_module(module):
@@ -89,11 +90,11 @@ def sketch_footprint(absfilepath, project_dirs):
 def sketch_accusation(targetpath, modulepaths, project_dirs):
     """Creates a graph of all the modules in `modulepaths` that import
     the module at `targetpath`. The directories used to resolve an import are `project_dirs`
-    
+
     Args:
         targetpath (str): filepath of the module whose import status is being checked.
         modulepaths (List[str]): list of modules filepaths to check for imports.
-        project_dirs (List[str]): list of directories used to resolve the imports 
+        project_dirs (List[str]): list of directories used to resolve the imports
     Returns:
         networkx.Graph: graph of the module as nodes with their imports as edges.
     """
@@ -123,9 +124,9 @@ def sketch_accusation(targetpath, modulepaths, project_dirs):
 def sketch_profile(absfilepath):
     """Creates a graph of all the functions, classes and methods defined in the module at
     `absfilepath`.
-    
+
     Args:
-        absfilepath (str): absolute filepath of the module whose definition are 
+        absfilepath (str): absolute filepath of the module whose definition are
           being checked.
     Returns:
         networkx.Graph: graph of the functions and classes as nodes with their scopes
