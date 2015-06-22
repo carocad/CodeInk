@@ -25,6 +25,15 @@ setup(
     classifiers = [ 'Development Status :: 3 - Alpha',
                     'Intended Audience :: Developers',
                     'Topic :: Utilities',
-                    'Programming Language :: Python :: 3'],
+                    'Environment :: Console',
+                    'Intended Audience :: Developers',
+                    'Topic :: Software Development',
+                    'Topic :: Software Development :: Quality Assurance',
+                    'Programming Language :: Python :: 2.7',
+                    'Programming Language :: Python :: 2.6',
+                    'Programming Language :: Python :: 3',
+                    'Programming Language :: Python :: 3.2',
+                    'Programming Language :: Python :: 3.3',
+                    'Programming Language :: Python :: 3.4'],
     entry_points = {'console_scripts': [ 'codeink = codeink_cli:main']}
 )
