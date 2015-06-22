@@ -12,9 +12,8 @@ install:
   - pip install .
 
 script:
-  - coverage run --source=codeink -m py.test -vv
   # artist.py doesnt contain any logic by itself but rather high level abstractions
-  - coverage report --omit=./codeink/artist.py
+  - coverage --omit=./codeink/artist.py run --source=codeink -m py.test -vv
 
 after_success:
   - coveralls
