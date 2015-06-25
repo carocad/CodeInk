@@ -10,6 +10,10 @@ CodeInk
 
 .. image:: https://coveralls.io/repos/carocad/CodeInk/badge.svg?branch=master
   :target: https://coveralls.io/r/carocad/CodeInk?branch=master
+  
+.. image:: https://codeclimate.com/github/carocad/CodeInk/badges/gpa.svg
+   :target: https://codeclimate.com/github/carocad/CodeInk
+   :alt: Code Climate
 
 CodeInk is a Python source code analyzer focused on complexity and interrelation of modules.
 
