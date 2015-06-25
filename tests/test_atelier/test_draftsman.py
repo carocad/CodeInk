@@ -154,6 +154,4 @@ def test_profile():
     answer.add_node(methodname, methodinfo)
     answer.add_edge(classname, methodname)
 
-    print('-------graph---------\n', json_graph.node_link_data(graph))
-    print('-------answer---------\n', json_graph.node_link_data(answer))
     assert networkx.is_isomorphic(answer, graph)
