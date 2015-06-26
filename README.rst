@@ -20,8 +20,9 @@ CodeInk is a Python source code analyzer focused on complexity and interrelation
 CodeInk draws the ihnerent relations of your modules along with their complexity and
 maintanability indexes in a beautiful graph powered by D3.js.
 
-.. image:: radon_art.png
+.. image:: https://raw.githubusercontent.com/carocad/CodeInk/master/radon_art.png
     :alt: drawing of radon v1.2
+
 - drawing of radon v1.2
 - hover over a rounded rectangle to check which module is it
 
@@ -80,4 +81,5 @@ requirements
 notes
 =====
 In order to use CodeInk you must make sure that your python version uses the same syntax as the code that you are analyzing i.e. analyzing a code written with Python v2.7 syntax while using Python v3.x will result in an error.
+
 
