@@ -9,8 +9,10 @@ python:
 
 install:
   - pip install coveralls
-  - python setup.py sdist bdist_wheel
-  - pip install --use-wheel --no-index --find-links=./dist
+  - pip wheel --wheel-dir=/tmp/wheelhouse codeink
+  - pip install --no-index --find-links=/tmp/wheelhouse codeink
+#  - python setup.py sdist bdist_wheel
+#  - pip install --use-wheel --no-index --find-links=./dist
 #  - pip install .
 
 script:
