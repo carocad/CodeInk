@@ -9,7 +9,9 @@ python:
 
 install:
   - pip install coveralls
-  - pip install .
+  - python setup.py sdist bdist_wheel
+  - pip install --use-wheel --no-index --find-links=./dist
+#  - pip install .
 
 script:
   # artist.py doesnt contain any logic by itself but rather high level abstractions
