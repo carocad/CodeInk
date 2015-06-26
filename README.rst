@@ -43,7 +43,7 @@ install
 =======
 with pip::
 
-    pip3 install git+https://github.com/carocad/CodeInk.git
+    pip install codeink
     
 manually::
 
