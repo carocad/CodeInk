@@ -16,6 +16,7 @@ setup(
     packages = find_packages(),
     py_modules = ['codeink_cli'],
     package_data = { 'codeink.canvas': ['hand.js',
+                                        'tools.js',
                                         'canvas.html',
                                         'cubism.css'] },
     install_requires = ['docopt>=0.6.2',
