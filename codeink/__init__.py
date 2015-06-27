@@ -1,9 +1,9 @@
 """
-	src.__init__
-	~~~~~~~~~~~
-	codeink main package
+    src.__init__
+    ~~~~~~~~~~~
+    codeink main package
 
-	* Copyright (c) 2015 Camilo Roca, carocad@unal.edu.co
+    * Copyright (c) 2015 Camilo Roca, carocad@unal.edu.co
 """
 __author__ = 'Camilo Roca'
 __license__ = 'Apache license 2.0'
