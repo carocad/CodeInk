@@ -7,6 +7,6 @@
 """
 __author__ = 'Camilo Roca'
 __license__ = 'Apache license 2.0'
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 __URL__ = 'https://github.com/carocad/codeInk'
 __author_email__ = 'carocad@unal.edu.co'
