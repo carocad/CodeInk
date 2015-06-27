@@ -1,6 +1,7 @@
 """general unrelated utilities that save time and are nice encapsulations"""
 
 import os
+import ast
 
 from codeink.parchment import peephole
 
@@ -18,40 +19,25 @@ def get_module_info(tree, absfilepath):
     _path = absfilepath
     return {'type':'module', 'name':_name, 'docstring':_doc, 'filepath':_path}
 
-def get_function_info(func, path):
-    """ put a function general info into a dictionary
+def get_node_info(node, path):
+    """ put a function or class general info into a dictionary
 
     Args:
-        func (ast.FunctionDef): function definition instance
+        func (ast.FunctionDef or ClassDef): function definition instance
           as defined in AST
         path (str): absolute filepath of the module where the
           function is defined
     Returns:
         dict: dictionary with selected information items
     """
-    _name = func.name
-    _doc = peephole.get_attr(func, 'doc')
+    _type = 'function'
+    if isinstance(node, ast.ClassDef):
+        _type = 'class'
+    _name = node.name
+    _doc = peephole.get_attr(node, 'doc')
     _path = path
-    _lineno = func.lineno
-    return {'type':'function', 'name':_name, 'docstring':_doc,
-            'filepath':_path, 'lineno':_lineno}
-
-def get_class_info(classDef, path):
-    """ put a class general info into a dictionary
-
-    Args:
-        tree (ast.ClassDef): class definition instance as
-          defined in AST
-        path (str): absolute filepath of the module where the
-          class is defined
-    Returns:
-        dict: dictionary with selected information items
-    """
-    _name = classDef.name
-    _doc = peephole.get_attr(classDef, 'doc')
-    _path = path
-    _lineno = classDef.lineno
-    return {'type':'class', 'name':_name, 'docstring':_doc,
+    _lineno = node.lineno
+    return {'type':_type, 'name':_name, 'docstring':_doc,
             'filepath':_path, 'lineno':_lineno}
 
 def value_to_HSL(value):

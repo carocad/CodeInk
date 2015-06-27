@@ -17,21 +17,22 @@ def test_get_module_info():
                    'docstring':'pig1 module', 'filepath':guineapig_path}
     assert module_info == secretary.get_module_info(tree, guineapig_path)
 
-def test_function_info():
+def test_node_info():
     guineapig_path = get_test_filepath()
     tree = peephole.parse(guineapig_path)
     funk = list(peephole.get_functions(tree))[0] # unique function in the file
     funk_info = {'type':'function', 'name':'foo', 'docstring':'foo function',
                  'filepath':guineapig_path, 'lineno':3}
-    assert funk_info == secretary.get_function_info(funk, guineapig_path)
+    assert funk_info == secretary.get_node_info(funk, guineapig_path)
 
-def test_get_class_info():
-    guineapig_path = get_test_filepath()
     tree = peephole.parse(guineapig_path)
     classdef = list(peephole.get_classes(tree))[0] # unique function in the file
     class_info = {'type':'class', 'name':'bar', 'docstring':'None',
                   'filepath':guineapig_path, 'lineno':7 }
-    assert class_info == secretary.get_class_info(classdef, guineapig_path)
+    assert class_info == secretary.get_node_info(classdef, guineapig_path)
+
+def test_get_class_info():
+    guineapig_path = get_test_filepath()
 
 def test_value_to_HSL():
     # test red value
