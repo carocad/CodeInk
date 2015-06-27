@@ -1,12 +1,14 @@
 
-var width = 1200;
-var height = 800;
-    //fill = d3.scale.category20();
+var width = window.innerWidth;
+var height = window.innerHeight;
+var viewBox = '0 0 ' + width + ' ' + height;
 
 var svgContainer = d3.select("#paint")
+                        .classed('svg-container', true)
                         .append("svg:svg")
-                        .attr("width", width)
-                        .attr("height", height);
+//responsive SVG needs these 2 attributes and no width and height attr
+                        .attr("viewBox", viewBox)
+                        .attr("preserveAspectRatio", "xMidYMid meet")
 
 d3.json("data.json", function(json) {
     var force = d3.layout.force()
@@ -17,7 +19,7 @@ d3.json("data.json", function(json) {
                 .size([width, height])
                 .start();
 
-    var link = svgContainer.selectAll("line.link")
+    var link = svgContainer.selectAll(".link")
                 .data(json.links)
                 .enter()
                 .append("svg:line")
@@ -28,7 +30,7 @@ d3.json("data.json", function(json) {
                     .attr("x2", function(d) { return d.target.x; })
                     .attr("y2", function(d) { return d.target.y; });
 
-    var nodes = svgContainer.selectAll('circle.node')
+    var nodes = svgContainer.selectAll('.node')
                 .data(json.nodes)
                 .enter()
                 .append('svg:path')

@@ -1,15 +1,15 @@
 
-line.link {
+.link {
   stroke: #999;
   stroke-opacity: .6;
 }
 
-circle.node {
+.node {
   stroke: #fff;
   stroke-width: 1.5px;
 }
 
-rect.node {
-  stroke: #fff;
-  stroke-width: 1.5px;
+.svg-container {
+    display: flex;
+    position: relative;
 }
